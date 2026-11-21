@@ -207,7 +207,7 @@
         <p class="lede">Turn your raw footage into polished videos with AI-powered editing. Upload your video, choose a style, and tell BOSS what you want. Review your edit and request changes in plain language.</p>
         <p style="margin-top:22px"><a class="btn app-cta" href="#studio">Start creating</a></p>
       </div>
-      <div class="studio mascot-wrap">${matchMedia('(prefers-reduced-motion:reduce)').matches ? '<img class="mascot" src="assets/img/boss-hero.webp?v=2" width="415" height="379" alt="BOSS, the studio mascot: a French bulldog in an orange hoodie, cap and headphones, holding a video camera, surrounded by AI, clapperboard, film and timeline icons" fetchpriority="high">' : '<video class="mascot" autoplay muted loop playsinline poster="assets/img/boss-hero.webp?v=2" aria-label="BOSS, the studio mascot, bobbing and waving" width="800" height="731"><source src="assets/img/boss-hero-loop.webm?v=1" type="video/webm"></video>'}</div>
+      <div class="studio mascot-wrap">${matchMedia('(prefers-reduced-motion:reduce)').matches ? '<img class="mascot" src="assets/img/boss-hero.webp?v=3" width="960" height="888" alt="BOSS, the studio mascot: a French bulldog in an orange hoodie and KMC cap with headphones, holding a video camera, surrounded by AI, clapperboard, film and timeline icons" fetchpriority="high">' : '<video class="mascot" autoplay muted loop playsinline poster="assets/img/boss-hero.webp?v=3" aria-label="BOSS, the studio mascot, bobbing and waving" width="960" height="888"><source src="assets/img/boss-hero-loop.webm?v=2" type="video/webm"></video>'}</div>
     </div>
     </div>
     <div class="band stats-band">

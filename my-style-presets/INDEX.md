@@ -29,6 +29,7 @@ Every saved style, organized by what it is for. Say a style's name to the editor
 | YouTube explainers | **Clean Motion Explainer** | (same) | `youtube-explainers/clean-motion-explainer/Clean-Motion-Explainer_style-guide.md`, `…_reference-analysis.md` |
 | Captions-first shorts | **Bold & Energetic** | (same) | `captions-first-shorts/bold-energetic/Bold-Energetic_style-guide.md` |
 | YouTube explainers | **Cobalt Cards** | (new) | `youtube-explainers/cobalt-cards/Cobalt-Cards_style-guide.md` |
+| YouTube explainers | **Studio Tour** | (new) | `youtube-explainers/studio-tour/Studio-Tour_style-guide.md` (code: `remotion/src/promo/`) |
 | YouTube explainers | **Explainer Video** | (new) | `youtube-explainers/explainer-video/Explainer-Video_style-guide.md` (code: `remotion/src/fbreel/FbReel.tsx`) |
 | App-walkthrough shorts | **The BOSS** | Onyx & Gold Walkthrough, BOSS UI Short: Onyx and Gold | `app-walkthrough-shorts/onyx-gold-walkthrough/Onyx-Gold-Walkthrough_script-and-structure.md` |
 

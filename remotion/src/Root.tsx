@@ -6,6 +6,7 @@ import {AiTeam01, DURATION_01} from './aiteam01/AiTeam01';
 import {FbReel, DURATION_FB, FPS as FB_FPS} from './fbreel/FbReel';
 import {AdRecreate, DURATION_AD} from './adrecreate/AdRecreate';
 import {BossPromo, DURATION_PROMO} from './promo/Promo';
+import {Walkthrough, DURATION_WT} from './walkthrough/Walkthrough';
 
 export const Root = () => {
   return (
@@ -22,6 +23,8 @@ export const Root = () => {
       <Composition id="FbReel" component={FbReel} durationInFrames={DURATION_FB} fps={FB_FPS} width={1920} height={1080} />
       {/* BOSS Studio product explainer, 16:9, Krista voiceover: pitch, app tour, close */}
       <Composition id="BossPromo" component={BossPromo} durationInFrames={DURATION_PROMO} fps={30} width={1920} height={1080} />
+      {/* BOSS dashboard walkthrough, 16:9, Krista voiceover, Studio Tour style */}
+      <Composition id="Walkthrough" component={Walkthrough} durationInFrames={DURATION_WT} fps={30} width={1920} height={1080} />
       <Composition
         id="Hello"
         component={Hello}

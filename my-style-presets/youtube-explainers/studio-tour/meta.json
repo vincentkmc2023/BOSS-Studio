@@ -1,0 +1,19 @@
+{
+  "id": "custom-1795119634193",
+  "name": "Studio Tour",
+  "tagline": "Warm cream, near-black and one orange-red accent, with Montserrat headlines that blur in word by word and italic serif accent words. Real app screens get a gliding camera, a clicking cursor, pulsing highlights and live clips playing wherever a thumbnail would sit.",
+  "formats": ["16:9 horizontal", "1920×1080 · 30 fps", "Drafts 1728×972", "Voice first"],
+  "shots": [
+    {"file": "shots/shot-01.jpg", "cap": "Hook: the headline blurs in word by word, the line keeps going in muted grey with a highlighter sweep"},
+    {"file": "shots/shot-02.jpg", "cap": "Dark stage: a 3D laptop where an AI ticks off the edit"},
+    {"file": "shots/shot-03.jpg", "cap": "Style gallery: every card plays its sample loop"},
+    {"file": "shots/shot-04.jpg", "cap": "The one orange-red slate for the big promise"},
+    {"file": "shots/shot-05.jpg", "cap": "App tour: zoom, cursor click, highlight and a callout card"},
+    {"file": "shots/shot-06.jpg", "cap": "Notes stack up in the real panel, step badge and caption pill"},
+    {"file": "shots/shot-07.jpg", "cap": "Full-screen button: clicked, renders, flips to \"It's done!\""},
+    {"file": "shots/shot-08.jpg", "cap": "Close: logo lockup, two-line promise, orange pill button, mascot"}
+  ],
+  "samples": [
+    {"title": "BOSS Studio Promo · opening", "file": "sample.mp4", "at": 12, "note": "The first 18.5 s of draft v4: chat hook, mascot-then-logo title reveal, and the record-to-finished-video flow with a live clip."}
+  ]
+}

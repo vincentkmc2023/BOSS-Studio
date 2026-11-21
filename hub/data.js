@@ -390,6 +390,41 @@ window.HUB = {
       session: 'Session "Magic Edit Mode".',
     },
 
+    // ------------------------------------------------------------------ Studio Tour
+    {
+      id: 'custom-1795119634193',
+      group: 'YouTube explainers',
+      faceless: true, // no presenter; people only appear inside real product clips
+      short: 'Studio Tour',
+      name: 'Studio Tour',
+      titleHtml: 'Studio <i>Tour</i>',
+      status: 'Approved',
+      kind: 'Video · horizontal',
+      cover: IMG('custom-1795119634193-cover'),
+      tagline: 'Warm cream, near-black and one orange-red accent, with Montserrat headlines that blur in word by word and italic serif accent words. Real app screens get a gliding camera, a clicking cursor, pulsing highlights and live clips playing wherever a thumbnail would sit.',
+      formats: ['16:9 horizontal', '1920×1080 · 30 fps', 'Drafts 1728×972', 'Voice first'],
+      invoke: ['use Studio Tour'],
+      origin: 'Written from draft v4 of the "BOSS Studio Promo" project (a product explainer with an animated pitch, an app tour and a dark close). Saved in `my-style-presets/youtube-explainers/studio-tour/`.',
+      samples: [{title: 'BOSS Studio Promo · opening', src: VID('custom-1795119634193-sample'), at: 12, wide: true, note: 'The first 18.5 s of draft v4: chat hook, mascot-then-logo title reveal, and the record-to-finished-video flow with a live clip.'}],
+      shots: [
+        {src: IMG('custom-1795119634193-1'), cap: 'Hook: the headline blurs in word by word, the line keeps going in muted grey with a highlighter sweep'},
+        {src: IMG('custom-1795119634193-2'), cap: 'Dark stage: a 3D laptop where an AI ticks off the edit'},
+        {src: IMG('custom-1795119634193-3'), cap: 'Style gallery: every card plays its sample loop'},
+        {src: IMG('custom-1795119634193-4'), cap: 'The one orange-red slate for the big promise'},
+        {src: IMG('custom-1795119634193-5'), cap: 'App tour: zoom, cursor click, highlight and a callout card'},
+        {src: IMG('custom-1795119634193-6'), cap: 'Notes stack up in the real panel, step badge and caption pill'},
+        {src: IMG('custom-1795119634193-7'), cap: 'Full-screen button: clicked, renders, flips to "It\'s done!"'},
+        {src: IMG('custom-1795119634193-8'), cap: 'Close: logo lockup, two-line promise, orange pill button, mascot'},
+      ],
+      files: [
+        ['my-style-presets/youtube-explainers/studio-tour/Studio-Tour_style-guide.md', 'The saved style'],
+        ['remotion/src/promo/', 'The code the draft was built from (scenes.tsx, ui.tsx, words.ts)'],
+        ['projects/boss-studio-promo/drafts/draft-v4.mp4', 'The draft the style was written from'],
+      ],
+      guides: [{label: 'Read the style', path: 'my-style-presets/youtube-explainers/studio-tour/Studio-Tour_style-guide.md'}],
+      session: 'Session "BOSS Studio Promo".',
+    },
+
     // ------------------------------------------------------------------ Neon Explainer
     {
       id: 'explainer-video',

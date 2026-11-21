@@ -1,0 +1,651 @@
+{
+  "text": "It all starts in one box, one sentence the way you'd say it to a person. No commands, no long prompt. Watch. Make a thumbnail for my new video. Here's what happens in the second after you press go. It reads your 19 house rules. It reads your business brain, your voice, your dream client, your stories. A manager picks the specialist who actually does this job and hands it over. That one does the work in your voice. Then it tries to break its own work before it ever tells you it's finished. You didn't pick a tool. You said a sentence. not sure what to say. These six cards start you off and up here, the green light chief is ready. That's the house open for business.",
+  "audio_duration_secs": 35.89805,
+  "words": [
+    {
+      "text": "It",
+      "start": 0,
+      "end": 0.16
+    },
+    {
+      "text": "all",
+      "start": 0.16,
+      "end": 0.28
+    },
+    {
+      "text": "starts",
+      "start": 0.28,
+      "end": 0.58
+    },
+    {
+      "text": "in",
+      "start": 0.58,
+      "end": 0.74
+    },
+    {
+      "text": "one",
+      "start": 0.74,
+      "end": 0.96
+    },
+    {
+      "text": "box,",
+      "start": 0.96,
+      "end": 1.88
+    },
+    {
+      "text": "one",
+      "start": 1.88,
+      "end": 1.98
+    },
+    {
+      "text": "sentence",
+      "start": 1.98,
+      "end": 2.4
+    },
+    {
+      "text": "the",
+      "start": 2.4,
+      "end": 2.56
+    },
+    {
+      "text": "way",
+      "start": 2.56,
+      "end": 2.66
+    },
+    {
+      "text": "you'd",
+      "start": 2.66,
+      "end": 2.84
+    },
+    {
+      "text": "say",
+      "start": 2.84,
+      "end": 2.98
+    },
+    {
+      "text": "it",
+      "start": 2.98,
+      "end": 3.08
+    },
+    {
+      "text": "to",
+      "start": 3.08,
+      "end": 3.18
+    },
+    {
+      "text": "a",
+      "start": 3.18,
+      "end": 3.28
+    },
+    {
+      "text": "person.",
+      "start": 3.28,
+      "end": 3.88
+    },
+    {
+      "text": "No",
+      "start": 3.86,
+      "end": 4.04
+    },
+    {
+      "text": "commands,",
+      "start": 4.04,
+      "end": 4.74
+    },
+    {
+      "text": "no",
+      "start": 4.74,
+      "end": 4.92
+    },
+    {
+      "text": "long",
+      "start": 4.92,
+      "end": 5.2
+    },
+    {
+      "text": "prompt.",
+      "start": 5.2,
+      "end": 5.98
+    },
+    {
+      "text": "Watch.",
+      "start": 5.62,
+      "end": 6.36
+    },
+    {
+      "text": "Make",
+      "start": 6.34,
+      "end": 6.5
+    },
+    {
+      "text": "a",
+      "start": 6.5,
+      "end": 6.6
+    },
+    {
+      "text": "thumbnail",
+      "start": 6.6,
+      "end": 6.98
+    },
+    {
+      "text": "for",
+      "start": 6.98,
+      "end": 7.14
+    },
+    {
+      "text": "my",
+      "start": 7.14,
+      "end": 7.24
+    },
+    {
+      "text": "new",
+      "start": 7.24,
+      "end": 7.4
+    },
+    {
+      "text": "video.",
+      "start": 7.4,
+      "end": 8.02
+    },
+    {
+      "text": "Here's",
+      "start": 8.24,
+      "end": 8.5
+    },
+    {
+      "text": "what",
+      "start": 8.5,
+      "end": 8.6
+    },
+    {
+      "text": "happens",
+      "start": 8.6,
+      "end": 9.02
+    },
+    {
+      "text": "in",
+      "start": 9.02,
+      "end": 9.2
+    },
+    {
+      "text": "the",
+      "start": 9.2,
+      "end": 9.3
+    },
+    {
+      "text": "second",
+      "start": 9.3,
+      "end": 9.62
+    },
+    {
+      "text": "after",
+      "start": 9.62,
+      "end": 9.88
+    },
+    {
+      "text": "you",
+      "start": 9.88,
+      "end": 10
+    },
+    {
+      "text": "press",
+      "start": 10,
+      "end": 10.3
+    },
+    {
+      "text": "go.",
+      "start": 10.3,
+      "end": 11.08
+    },
+    {
+      "text": "It",
+      "start": 11.02,
+      "end": 11.18
+    },
+    {
+      "text": "reads",
+      "start": 11.18,
+      "end": 11.52
+    },
+    {
+      "text": "your",
+      "start": 11.52,
+      "end": 11.66
+    },
+    {
+      "text": "19",
+      "start": 11.66,
+      "end": 12.24
+    },
+    {
+      "text": "house",
+      "start": 12.24,
+      "end": 12.56
+    },
+    {
+      "text": "rules.",
+      "start": 12.56,
+      "end": 13.42
+    },
+    {
+      "text": "It",
+      "start": 13.34,
+      "end": 13.48
+    },
+    {
+      "text": "reads",
+      "start": 13.48,
+      "end": 13.78
+    },
+    {
+      "text": "your",
+      "start": 13.78,
+      "end": 13.9
+    },
+    {
+      "text": "business",
+      "start": 13.9,
+      "end": 14.34
+    },
+    {
+      "text": "brain,",
+      "start": 14.34,
+      "end": 15.12
+    },
+    {
+      "text": "your",
+      "start": 15.12,
+      "end": 15.22
+    },
+    {
+      "text": "voice,",
+      "start": 15.22,
+      "end": 15.94
+    },
+    {
+      "text": "your",
+      "start": 15.94,
+      "end": 16.06
+    },
+    {
+      "text": "dream",
+      "start": 16.06,
+      "end": 16.38
+    },
+    {
+      "text": "client,",
+      "start": 16.38,
+      "end": 16.88
+    },
+    {
+      "text": "your",
+      "start": 16.88,
+      "end": 16.94
+    },
+    {
+      "text": "stories.",
+      "start": 16.94,
+      "end": 17.98
+    },
+    {
+      "text": "A",
+      "start": 17,
+      "end": 17.96
+    },
+    {
+      "text": "manager",
+      "start": 17.96,
+      "end": 18.48
+    },
+    {
+      "text": "picks",
+      "start": 18.48,
+      "end": 18.82
+    },
+    {
+      "text": "the",
+      "start": 18.82,
+      "end": 19.04
+    },
+    {
+      "text": "specialist",
+      "start": 19.04,
+      "end": 19.44
+    },
+    {
+      "text": "who",
+      "start": 19.44,
+      "end": 19.62
+    },
+    {
+      "text": "actually",
+      "start": 19.62,
+      "end": 20.08
+    },
+    {
+      "text": "does",
+      "start": 20.08,
+      "end": 20.36
+    },
+    {
+      "text": "this",
+      "start": 20.36,
+      "end": 20.56
+    },
+    {
+      "text": "job",
+      "start": 20.56,
+      "end": 20.9
+    },
+    {
+      "text": "and",
+      "start": 20.9,
+      "end": 21.3
+    },
+    {
+      "text": "hands",
+      "start": 21.3,
+      "end": 21.58
+    },
+    {
+      "text": "it",
+      "start": 21.58,
+      "end": 21.76
+    },
+    {
+      "text": "over.",
+      "start": 21.76,
+      "end": 22.5
+    },
+    {
+      "text": "That",
+      "start": 22.44,
+      "end": 22.66
+    },
+    {
+      "text": "one",
+      "start": 22.66,
+      "end": 22.84
+    },
+    {
+      "text": "does",
+      "start": 22.84,
+      "end": 23.04
+    },
+    {
+      "text": "the",
+      "start": 23.04,
+      "end": 23.2
+    },
+    {
+      "text": "work",
+      "start": 23.2,
+      "end": 23.48
+    },
+    {
+      "text": "in",
+      "start": 23.48,
+      "end": 23.74
+    },
+    {
+      "text": "your",
+      "start": 23.74,
+      "end": 23.9
+    },
+    {
+      "text": "voice.",
+      "start": 23.9,
+      "end": 24.7
+    },
+    {
+      "text": "Then",
+      "start": 24.64,
+      "end": 24.82
+    },
+    {
+      "text": "it",
+      "start": 24.82,
+      "end": 24.92
+    },
+    {
+      "text": "tries",
+      "start": 24.92,
+      "end": 25.28
+    },
+    {
+      "text": "to",
+      "start": 25.28,
+      "end": 25.5
+    },
+    {
+      "text": "break",
+      "start": 25.5,
+      "end": 25.8
+    },
+    {
+      "text": "its",
+      "start": 25.8,
+      "end": 25.96
+    },
+    {
+      "text": "own",
+      "start": 25.96,
+      "end": 26.12
+    },
+    {
+      "text": "work",
+      "start": 26.12,
+      "end": 26.34
+    },
+    {
+      "text": "before",
+      "start": 26.34,
+      "end": 26.62
+    },
+    {
+      "text": "it",
+      "start": 26.62,
+      "end": 26.8
+    },
+    {
+      "text": "ever",
+      "start": 26.8,
+      "end": 26.98
+    },
+    {
+      "text": "tells",
+      "start": 26.98,
+      "end": 27.22
+    },
+    {
+      "text": "you",
+      "start": 27.22,
+      "end": 27.36
+    },
+    {
+      "text": "it's",
+      "start": 27.36,
+      "end": 27.48
+    },
+    {
+      "text": "finished.",
+      "start": 27.48,
+      "end": 28.26
+    },
+    {
+      "text": "You",
+      "start": 27.96,
+      "end": 27.98
+    },
+    {
+      "text": "didn't",
+      "start": 27.98,
+      "end": 28.12
+    },
+    {
+      "text": "pick",
+      "start": 28.12,
+      "end": 28.26
+    },
+    {
+      "text": "a",
+      "start": 28.26,
+      "end": 28.38
+    },
+    {
+      "text": "tool.",
+      "start": 28.38,
+      "end": 29.06
+    },
+    {
+      "text": "You",
+      "start": 28.78,
+      "end": 28.8
+    },
+    {
+      "text": "said",
+      "start": 28.8,
+      "end": 29
+    },
+    {
+      "text": "a",
+      "start": 29,
+      "end": 29.1
+    },
+    {
+      "text": "sentence.",
+      "start": 29.1,
+      "end": 29.84
+    },
+    {
+      "text": "not",
+      "start": 29.36,
+      "end": 29.52
+    },
+    {
+      "text": "sure",
+      "start": 29.52,
+      "end": 29.68
+    },
+    {
+      "text": "what",
+      "start": 29.68,
+      "end": 29.82
+    },
+    {
+      "text": "to",
+      "start": 29.82,
+      "end": 29.96
+    },
+    {
+      "text": "say.",
+      "start": 29.96,
+      "end": 30.66
+    },
+    {
+      "text": "These",
+      "start": 30.66,
+      "end": 30.72
+    },
+    {
+      "text": "six",
+      "start": 30.72,
+      "end": 31.02
+    },
+    {
+      "text": "cards",
+      "start": 31.02,
+      "end": 31.28
+    },
+    {
+      "text": "start",
+      "start": 31.28,
+      "end": 31.52
+    },
+    {
+      "text": "you",
+      "start": 31.52,
+      "end": 31.66
+    },
+    {
+      "text": "off",
+      "start": 31.66,
+      "end": 31.96
+    },
+    {
+      "text": "and",
+      "start": 31.96,
+      "end": 32.2
+    },
+    {
+      "text": "up",
+      "start": 32.2,
+      "end": 32.36
+    },
+    {
+      "text": "here,",
+      "start": 32.36,
+      "end": 32.92
+    },
+    {
+      "text": "the",
+      "start": 32.92,
+      "end": 32.94
+    },
+    {
+      "text": "green",
+      "start": 32.94,
+      "end": 33.1
+    },
+    {
+      "text": "light",
+      "start": 33.1,
+      "end": 33.36
+    },
+    {
+      "text": "chief",
+      "start": 33.36,
+      "end": 33.7
+    },
+    {
+      "text": "is",
+      "start": 33.7,
+      "end": 33.88
+    },
+    {
+      "text": "ready.",
+      "start": 33.88,
+      "end": 34.56
+    },
+    {
+      "text": "That's",
+      "start": 34.3,
+      "end": 34.52
+    },
+    {
+      "text": "the",
+      "start": 34.52,
+      "end": 34.62
+    },
+    {
+      "text": "house",
+      "start": 34.62,
+      "end": 34.84
+    },
+    {
+      "text": "open",
+      "start": 34.84,
+      "end": 35.24
+    },
+    {
+      "text": "for",
+      "start": 35.24,
+      "end": 35.38
+    },
+    {
+      "text": "business.",
+      "start": 35.38,
+      "end": 36.14
+    }
+  ]
+}

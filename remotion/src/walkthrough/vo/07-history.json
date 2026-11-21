@@ -1,0 +1,491 @@
+{
+  "text": "A plain chat window forgets everything the moment you close it. Claude, Codex, any of them. New tab, blank page, and you're explaining yourself all over again. This is the opposite of that. Every conversation is here, filed by the kind of work it was. Video, images, and design, pages and funnels, planning, open one and pick up mid-sentence. And it isn't only storage. Every correction you make in one of these becomes a rule. Tell it once that you never want a particular word used, and tomorrow it's gone for good. You never say it twice.",
+  "audio_duration_secs": 31.811338,
+  "words": [
+    {
+      "text": "A",
+      "start": 0,
+      "end": 0.14
+    },
+    {
+      "text": "plain",
+      "start": 0.14,
+      "end": 0.62
+    },
+    {
+      "text": "chat",
+      "start": 0.62,
+      "end": 0.88
+    },
+    {
+      "text": "window",
+      "start": 0.88,
+      "end": 1.16
+    },
+    {
+      "text": "forgets",
+      "start": 1.16,
+      "end": 1.68
+    },
+    {
+      "text": "everything",
+      "start": 1.68,
+      "end": 2.22
+    },
+    {
+      "text": "the",
+      "start": 2.22,
+      "end": 2.42
+    },
+    {
+      "text": "moment",
+      "start": 2.42,
+      "end": 2.68
+    },
+    {
+      "text": "you",
+      "start": 2.68,
+      "end": 2.82
+    },
+    {
+      "text": "close",
+      "start": 2.82,
+      "end": 3.08
+    },
+    {
+      "text": "it.",
+      "start": 3.08,
+      "end": 3.8
+    },
+    {
+      "text": "Claude,",
+      "start": 3.76,
+      "end": 4.36
+    },
+    {
+      "text": "Codex,",
+      "start": 4.36,
+      "end": 4.84
+    },
+    {
+      "text": "any",
+      "start": 4.84,
+      "end": 5.08
+    },
+    {
+      "text": "of",
+      "start": 5.08,
+      "end": 5.26
+    },
+    {
+      "text": "them.",
+      "start": 5.26,
+      "end": 5.84
+    },
+    {
+      "text": "New",
+      "start": 5.86,
+      "end": 6.04
+    },
+    {
+      "text": "tab,",
+      "start": 6.04,
+      "end": 6.46
+    },
+    {
+      "text": "blank",
+      "start": 6.46,
+      "end": 6.66
+    },
+    {
+      "text": "page,",
+      "start": 6.66,
+      "end": 7.2
+    },
+    {
+      "text": "and",
+      "start": 7.2,
+      "end": 7.34
+    },
+    {
+      "text": "you're",
+      "start": 7.34,
+      "end": 7.74
+    },
+    {
+      "text": "explaining",
+      "start": 7.74,
+      "end": 8.12
+    },
+    {
+      "text": "yourself",
+      "start": 8.12,
+      "end": 8.4
+    },
+    {
+      "text": "all",
+      "start": 8.4,
+      "end": 8.62
+    },
+    {
+      "text": "over",
+      "start": 8.62,
+      "end": 8.82
+    },
+    {
+      "text": "again.",
+      "start": 8.82,
+      "end": 9.56
+    },
+    {
+      "text": "This",
+      "start": 9.5,
+      "end": 9.68
+    },
+    {
+      "text": "is",
+      "start": 9.68,
+      "end": 9.8
+    },
+    {
+      "text": "the",
+      "start": 9.8,
+      "end": 9.9
+    },
+    {
+      "text": "opposite",
+      "start": 9.9,
+      "end": 10.34
+    },
+    {
+      "text": "of",
+      "start": 10.34,
+      "end": 10.6
+    },
+    {
+      "text": "that.",
+      "start": 10.6,
+      "end": 11.3
+    },
+    {
+      "text": "Every",
+      "start": 11.3,
+      "end": 11.5
+    },
+    {
+      "text": "conversation",
+      "start": 11.5,
+      "end": 12.08
+    },
+    {
+      "text": "is",
+      "start": 12.08,
+      "end": 12.32
+    },
+    {
+      "text": "here,",
+      "start": 12.32,
+      "end": 12.66
+    },
+    {
+      "text": "filed",
+      "start": 12.66,
+      "end": 13.38
+    },
+    {
+      "text": "by",
+      "start": 13.38,
+      "end": 13.54
+    },
+    {
+      "text": "the",
+      "start": 13.54,
+      "end": 13.66
+    },
+    {
+      "text": "kind",
+      "start": 13.66,
+      "end": 13.86
+    },
+    {
+      "text": "of",
+      "start": 13.86,
+      "end": 13.92
+    },
+    {
+      "text": "work",
+      "start": 13.92,
+      "end": 14.1
+    },
+    {
+      "text": "it",
+      "start": 14.1,
+      "end": 14.24
+    },
+    {
+      "text": "was.",
+      "start": 14.24,
+      "end": 15.06
+    },
+    {
+      "text": "Video,",
+      "start": 14.9,
+      "end": 15.62
+    },
+    {
+      "text": "images,",
+      "start": 15.62,
+      "end": 16.3
+    },
+    {
+      "text": "and",
+      "start": 16.3,
+      "end": 16.38
+    },
+    {
+      "text": "design,",
+      "start": 16.38,
+      "end": 17.08
+    },
+    {
+      "text": "pages",
+      "start": 17.08,
+      "end": 17.46
+    },
+    {
+      "text": "and",
+      "start": 17.46,
+      "end": 17.64
+    },
+    {
+      "text": "funnels,",
+      "start": 17.64,
+      "end": 18.2
+    },
+    {
+      "text": "planning,",
+      "start": 18.2,
+      "end": 18.94
+    },
+    {
+      "text": "open",
+      "start": 18.94,
+      "end": 19.22
+    },
+    {
+      "text": "one",
+      "start": 19.22,
+      "end": 19.44
+    },
+    {
+      "text": "and",
+      "start": 19.44,
+      "end": 19.56
+    },
+    {
+      "text": "pick",
+      "start": 19.56,
+      "end": 19.78
+    },
+    {
+      "text": "up",
+      "start": 19.78,
+      "end": 19.9
+    },
+    {
+      "text": "mid-sentence.",
+      "start": 19.9,
+      "end": 21
+    },
+    {
+      "text": "And",
+      "start": 20.58,
+      "end": 20.7
+    },
+    {
+      "text": "it",
+      "start": 20.7,
+      "end": 20.8
+    },
+    {
+      "text": "isn't",
+      "start": 20.8,
+      "end": 21.1
+    },
+    {
+      "text": "only",
+      "start": 21.1,
+      "end": 21.42
+    },
+    {
+      "text": "storage.",
+      "start": 21.42,
+      "end": 22.6
+    },
+    {
+      "text": "Every",
+      "start": 22.78,
+      "end": 23.04
+    },
+    {
+      "text": "correction",
+      "start": 23.04,
+      "end": 23.54
+    },
+    {
+      "text": "you",
+      "start": 23.54,
+      "end": 23.72
+    },
+    {
+      "text": "make",
+      "start": 23.72,
+      "end": 23.96
+    },
+    {
+      "text": "in",
+      "start": 23.96,
+      "end": 24.08
+    },
+    {
+      "text": "one",
+      "start": 24.08,
+      "end": 24.22
+    },
+    {
+      "text": "of",
+      "start": 24.22,
+      "end": 24.34
+    },
+    {
+      "text": "these",
+      "start": 24.34,
+      "end": 24.5
+    },
+    {
+      "text": "becomes",
+      "start": 24.5,
+      "end": 24.82
+    },
+    {
+      "text": "a",
+      "start": 24.82,
+      "end": 25
+    },
+    {
+      "text": "rule.",
+      "start": 25,
+      "end": 25.72
+    },
+    {
+      "text": "Tell",
+      "start": 25.74,
+      "end": 25.88
+    },
+    {
+      "text": "it",
+      "start": 25.88,
+      "end": 26.02
+    },
+    {
+      "text": "once",
+      "start": 26.02,
+      "end": 26.34
+    },
+    {
+      "text": "that",
+      "start": 26.34,
+      "end": 26.5
+    },
+    {
+      "text": "you",
+      "start": 26.5,
+      "end": 26.6
+    },
+    {
+      "text": "never",
+      "start": 26.6,
+      "end": 27.06
+    },
+    {
+      "text": "want",
+      "start": 27.06,
+      "end": 27.34
+    },
+    {
+      "text": "a",
+      "start": 27.34,
+      "end": 27.46
+    },
+    {
+      "text": "particular",
+      "start": 27.46,
+      "end": 27.9
+    },
+    {
+      "text": "word",
+      "start": 27.9,
+      "end": 28.2
+    },
+    {
+      "text": "used,",
+      "start": 28.2,
+      "end": 28.62
+    },
+    {
+      "text": "and",
+      "start": 28.62,
+      "end": 28.72
+    },
+    {
+      "text": "tomorrow",
+      "start": 28.72,
+      "end": 29.14
+    },
+    {
+      "text": "it's",
+      "start": 29.14,
+      "end": 29.38
+    },
+    {
+      "text": "gone",
+      "start": 29.38,
+      "end": 29.56
+    },
+    {
+      "text": "for",
+      "start": 29.56,
+      "end": 29.76
+    },
+    {
+      "text": "good.",
+      "start": 29.76,
+      "end": 29.98
+    },
+    {
+      "text": "You",
+      "start": 30.44,
+      "end": 30.5
+    },
+    {
+      "text": "never",
+      "start": 30.5,
+      "end": 30.78
+    },
+    {
+      "text": "say",
+      "start": 30.78,
+      "end": 31.06
+    },
+    {
+      "text": "it",
+      "start": 31.06,
+      "end": 31.18
+    },
+    {
+      "text": "twice.",
+      "start": 31.18,
+      "end": 32.04
+    }
+  ]
+}
