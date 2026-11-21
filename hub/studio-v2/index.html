@@ -97,6 +97,7 @@ input[type=time]{font:500 .9rem Montserrat,sans-serif;color:var(--ink);backgroun
 .num{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:1rem;flex:none}.num.done{background:var(--green)}
 .say{color:var(--muted);margin:2px 0 14px 46px;font-size:.92rem}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.nchips{position:absolute;left:52px;right:10px;bottom:12px;margin:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.nchips::-webkit-scrollbar{display:none}.nchips .chip{flex:none;white-space:nowrap}
 .chip{border:1px dashed var(--line);background:#fff;border-radius:999px;padding:6px 12px;font:700 .78rem Montserrat,sans-serif;cursor:pointer;color:var(--ink)}.chip:hover{border-color:var(--accent);color:var(--accent)}
 .sty.on{position:relative}.sty.on::after{content:"✓ Picked";position:absolute;top:8px;left:8px;background:var(--accent);color:#fff;border-radius:999px;padding:3px 10px;font:700 .72rem Montserrat,sans-serif;z-index:2}
 .go{text-align:center;padding:26px 22px}
@@ -309,6 +310,16 @@ details.more{margin:0 0 4px}details.more>summary{cursor:pointer;font-size:.8rem;
 body.annot{overflow:hidden}
 body.annot .stage{overflow:hidden}
 body.annot .top{display:none}
+.uring{position:fixed;right:14px;top:22px;z-index:6;width:34px;height:34px;padding:0;border-radius:50%;background:#fff;border:2px solid var(--line);display:grid;place-items:center;cursor:pointer}
+.uring[hidden]{display:none}
+.uring svg{width:24px;height:24px;transform:rotate(-90deg)}.uring circle{fill:none;stroke-width:3.5}.uring .t{stroke:var(--line)}.uring .v{stroke:#2f6fdf;stroke-linecap:round}.uring.mid .v{stroke:#d99a00}.uring.hot .v{stroke:#c9304a}
+.uring:hover{background:#14213d;border-color:#14213d}.uring:hover circle.t{stroke:#5b6785}.uring:hover circle.v{stroke:#7fb0ff}
+.upop{position:fixed;right:14px;top:62px;z-index:20;width:300px;max-width:86vw;background:#fff;color:#14110F;border:2px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 8px 24px rgba(20,30,60,.15);font-size:14px}
+.upop[hidden]{display:none}
+.upop h4{margin:0 0 8px}.upop p{margin:8px 0 0;font-size:12px;color:#6b6460}.upop .u{margin:8px 0}.upop .u>div:first-child{display:flex;justify-content:space-between}.upop .ubar{height:6px;border-radius:9px;background:#ece6dc;margin:4px 0}.upop .ubar i{display:block;height:100%;border-radius:9px;background:#2f6fdf}.upop .u.mid .ubar i{background:#d99a00}.upop .u.hot .ubar i{background:#c9304a}.upop small{color:#6b6460}
+body.annot .uring,body.annot .upop{display:none}
+.top{width:calc(100% - 128px)}
+@media(max-width:700px){.top{width:calc(100% - 32px)}.uring{top:auto;bottom:14px}.upop{top:auto;bottom:56px}}
 body.annot .ws{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:max-content;max-width:calc(100vw - 24px);max-height:calc(100vh - 24px);z-index:25;background:var(--bg);border-radius:22px;box-shadow:0 0 0 100vmax rgba(20,17,15,.6);overflow:auto;padding:14px;gap:14px;grid-template-columns:max-content 420px !important}
 body.annot .ws>section.c:first-child{padding:0;border:0;background:none;box-shadow:none}
 body.annot .stage canvas{max-width:calc(100vw - 520px) !important}
@@ -339,6 +350,14 @@ body.darknew .top b{color:#F6F3EC}
 body.darknew .hero h1 i{color:#FF6B3D}
 body.darknew .c,body.darknew .sty,body.darknew .sty b{color:var(--ink)}
 @keyframes gridshift{to{background-position:420px 420px}}
+/* every enabled button reacts on hover: a small lift and shadow; filled buttons also brighten; disabled ones stay still */
+button,.b,.chip{transition:transform .12s ease,box-shadow .12s ease,filter .12s ease,background-color .12s ease,border-color .12s ease}
+button:not(:disabled):not(.sw):not(.x):hover,a.b:hover,.chip:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(20,17,15,.16)}
+button:not(:disabled):not(.sw):not(.x):active,a.b:active,.chip:active{transform:translateY(0);box-shadow:none}
+button.p:not(:disabled):hover,button.a:not(:disabled):hover,button.on:not(:disabled):hover,button.back:hover,.newbtn:hover,.bigbtn:not(:disabled):hover,.next:not(:disabled):hover{filter:brightness(1.12)}
+button:not(:disabled):not(.p):not(.a):not(.on):not(.sel):not(.sw):not(.x):not(.back):not(.newbtn):not(.bigbtn):not(.next):hover,.chip:hover{background-color:var(--tint)}
+.menu .pop button:hover,.cg button:hover{transform:none;box-shadow:none}
+button.x:not(:disabled):hover{filter:brightness(.9)}
 </style>
 </head>
 <body>
@@ -349,6 +368,7 @@ body.darknew .c,body.darknew .sty,body.darknew .sty b{color:var(--ink)}
   <span class="sp"></span>
   <span class="brand" data-go="home"><span class="dot"></span>BOSS <i>Studio</i></span>
 </header>
+<button type="button" class="uring" id="ringb" aria-label="Usage limits" aria-expanded="false" hidden></button><div class="upop" id="pop" hidden></div>
 <main id="app"></main>
 <div id="toast" class="toast" hidden></div>
 <div id="cfm" class="modal" hidden><div class="c" style="max-width:460px"><p id="cfmtext" style="margin:0 0 14px;font-weight:600"></p><div class="r"><button class="a" id="cfmyes">Yes, delete</button><button id="cfmno">Cancel</button></div></div></div>
@@ -432,7 +452,7 @@ async function applyNewRefLinks(p) {
 // the instructions box on the New Project screen: a one-time copy into the Instructions step's text,
 // appended if there's already a brief (not a live-synced duplicate — see hub/studio/NEXT-BUILD-NOTES.md item 4)
 async function applyNewOpts(p) { // the Extras picked on the New project page travel with the project
-  p.opts = {...(draftNew.opts || {audio: true})};
+  p.opts = {...(draftNew.opts || {audio: true})}; p.model = draftNew.model || 'opus';
   if (API) await jf('PUT', '/api/projects/' + p.id, p);
 }
 async function applyNewInstructions(p) {
@@ -458,6 +478,15 @@ const INK_SIZES = [0.6, 1, 1.8]; // thin, medium (the old fixed look), thick
 let inkColor = INK_COLORS[0], inkSize = 1;
 const app = $('#app');
 function askConfirm(msg, yesLabel, noLabel) { return new Promise((ok) => { const m = $('#cfm'); $('#cfmtext').textContent = msg; $('#cfmyes').textContent = yesLabel || 'Yes, delete'; $('#cfmno').textContent = noLabel || 'Cancel'; m.hidden = false; const done = (v) => { m.hidden = true; ok(v); }; $('#cfmyes').onclick = () => done(true); $('#cfmno').onclick = () => done(false); }); }
+// ---- the AI brain (model) that does the editing: picked on Get Started, changeable before every render, remembered per project
+const BRAINS = [['opus', 'ti-brain', 'Extra smart', 'Opus 5.5', 'Big or tricky edits. Takes longer.'], ['sonnet', 'ti-bolt', 'Everyday', 'Sonnet 5.5', 'Fast and smart. Lower cost.'], ['fable', 'ti-rocket', 'Most powerful', 'Fable 5.2', 'The strongest. Uses the most credits.'], ['haiku', 'ti-feather', 'Quick', 'Haiku 5.5', 'Cheapest. Small, simple changes.']];
+const brainOf = (p) => (p && p.model) || 'opus'; // opus = what the studio always used, so nothing changes until you pick another
+const brainRow = (id) => BRAINS.find((b) => b[0] === id) || BRAINS[0];
+function brainChip() {
+  const b = brainRow(brainOf(cur));
+  return '<div class="menu brainchip"><button type="button" class="chip" data-menu="1" title="Which AI brain does this render"><i class="ti ' + b[1] + '"></i>Brain: <b>' + b[2] + '</b><em> · ' + b[3] + '</em><i class="ti ti-chevron-down"></i></button><div class="pop">' + BRAINS.map((x) => '<button type="button" data-brain="' + x[0] + '"' + (x[0] === b[0] ? ' style="border-color:var(--accent)"' : '') + '><i class="ti ' + x[1] + '"></i><span><b>' + x[2] + '</b> · ' + x[3] + '<small style="display:block;color:var(--muted);font-weight:500">' + x[4] + '</small></span></button>').join('') + '</div></div>';
+}
+const brainCardHtml = () => '<section class="stepcard"><h2><span class="num">6</span>Pick the AI brain</h2><p class="say">This is the AI that does the editing. Not sure? Keep the one that is already picked. You can change it before every render.</p><div class="extras">' + BRAINS.map(([id, ic, nm, md, ds]) => '<label class="ex"><input type="radio" name="brain" data-newbrain="' + id + '"' + ((draftNew.model || 'opus') === id ? ' checked' : '') + ' hidden><i class="ti ' + ic + ' ic"></i><b>' + nm + (id === 'opus' ? ' <span style="color:var(--green);font-size:.7rem">· Recommended</span>' : '') + '</b><small>' + md + ' · ' + ds + '</small></label>').join('') + '</div></section>';
 const styleNeedsVideo = (id) => { const s = STY.find((x) => x.id === id); return !!(s && s.faceless === false); }; // faceless:false = built on video of a person
 const NEEDS_VIDEO_MSG = (id) => 'The "' + styName(id) + '" style is built on video of a person, so it cannot be used with only an MP3. Pick a motion-graphics style (a faceless one), or add a video.';
 const audioOnlyBlock = () => !!(draftNew.styleId && !draftNew.file && draftNew.vofile && styleNeedsVideo(draftNew.styleId));
@@ -469,7 +498,7 @@ async function confirmFacelessMismatch() {
 }
 function toast(m) { const t = $('#toast'); t.textContent = m; t.hidden = false; clearTimeout(toast.h); toast.h = setTimeout(() => (t.hidden = true), 2600); }
 const pushStep = () => history.pushState({view, pid: cur && cur.id, phase: cur && (cur.phase || 'brief'), annot: !!snap}, '');
-function go(v, p, pop) { pendingRefs = []; clearInterval(poller); poller = null; runSt = null; runLabel = ''; view = v; cur = p || null; snap = null; if (v === 'project' && p) { try { localStorage.setItem('v2-last', p.id); } catch {} } $('#crumb').textContent = p ? p.name : ''; render(); window.scrollTo(0, 0); if (!pop) pushStep(); }
+function go(v, p, pop) { pendingRefs = []; clearInterval(poller); poller = null; runSt = null; runLabel = ''; view = v; cur = p || null; snap = null; if (v === 'project' && p) { try { localStorage.setItem('v2-last', p.id); } catch {} } $('#crumb').textContent = p ? p.name : ''; render(); window.scrollTo(0, 0); if (!pop) pushStep(); if (v === 'list') showSteps(); else if (v === 'new') showSteps(START_HELP, 'Getting started', 'Fill these in, then press Magic Edit.'); }
 let notesDirty = false; // notes were added while the floating canvas stayed open: re-render once it closes so buttons and counts catch up
 function finishAnnot() { snap = null; gv = null; seekWant = null; stage(); if (notesDirty) { notesDirty = false; project(); } }
 function closeAnnot() { annotating = false; if (history.state && history.state.annot) history.back(); else finishAnnot(); }
@@ -550,6 +579,7 @@ function render() {
       <div class="extras">${[['audio', 'microphone', 'Clean up my audio', 'Clearer voice, less background noise'], ['music', 'music', 'Add background music', 'Soft music under the voice'], ['sfx', 'volume', 'Add sound effects', 'Subtle whooshes and pops']].map(([k, ic, t, h]) => '<label class="ex"><input type="checkbox" data-newopt="' + k + '"' + ((draftNew.opts || {audio: true})[k] ? ' checked' : '') + ' hidden><i class="ti ti-' + ic + ' ic"></i><b>' + t + '</b><small>' + h + '</small></label>').join('')}</div></section>
     <section class="stepcard"><h2><span class="num" id="n4">5</span>Pick a look</h2><p class="say">Tap the one you like. Not sure? Choose "Custom". You can change it later. Press the full-screen icon on a card to watch it.</p>
       <div id="stylepick" style="width:auto;margin:0;padding:0"><div class="styles"><div class="sty ${draftNew.styleId === '' ? 'on' : ''}" data-sty=""><div class="th" style="aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:34px"><i class="ti ti-scissors"></i><div class="use"><span>Use this style</span></div></div><b>Custom</b></div>${STY.map((s) => { const sm = s.samples && s.samples[0]; return `<div class="sty ${s.id === draftNew.styleId ? 'on' : ''}" data-sty="${s.id}"><div class="th"><img src="${P}${s.cover}" alt="">${sm ? `<video muted loop playsinline preload="none" data-src="${P}${sm.src}" data-at="${sm.at || 0}"></video><button class="i" data-fsvideo="1" title="Watch the full video"><i class="ti ti-maximize"></i></button>` : ''}<div class="use"><span>Use this style</span></div></div><b>${esc(s.name)}</b></div>`; }).join('')}</div></div></section>
+    ${brainCardHtml()}
     <section class="stepcard go">
       <button class="bigbtn" id="btnmagic" data-act="magicedit"${dis ? ' disabled' : ''}><i class="ti ti-wand"></i>Magic Edit</button>
       <p class="need${dis ? '' : ' ready'}" id="need">${blockStyle ? esc(NEEDS_VIDEO_MSG(draftNew.styleId)) : dis ? (!nameOk && !hasMedia ? 'Add a name and a video to start.' : !nameOk ? 'Add a name to continue.' : 'Add your video to continue.') : 'All set! Press Magic Edit.'}</p>
@@ -609,7 +639,7 @@ function project() {
   const styleRange = '<label class="l" style="margin-top:16px"><i class="ti ti-palette" style="vertical-align:-2px;margin-right:4px"></i>Use a style here</label><div class="r" style="margin:0 0 6px"><select id="nsty" style="flex:1;min-width:160px"><option value="">Keep the project style (' + esc(styName(p.styleId)) + ')</option>' + STY.map((s) => '<option value="' + s.id + '">' + esc(s.name) + '</option>').join('') + '<option value="__link">Copy a style from a link…</option></select><select id="nrange" style="width:170px">' + RANGES.map((r) => '<option>' + r + '</option>').join('') + '</select></div>' +
     '<div id="nlinkrow" hidden><input type="text" id="nlink" placeholder="Paste a YouTube, TikTok or Instagram link" style="margin:0 0 4px"><p class="mut" style="margin:0 0 6px">Say what to copy in the note, like "the zoom on each key word". Leave it empty to copy the whole look.</p></div>' +
     '<p class="mut" style="margin:0 0 14px">Attached to the note as "use this style from this time".</p>';
-  const notes = '<section class="c"><p class="h"><i class="ti ti-message"></i>Revision notes</p><textarea id="ntext" rows="6" style="margin:4px 0 10px" placeholder="Make the captions bigger and move them up"></textarea><details class="more"><summary>More options · style, image, B-roll</summary>' + styleRange + '<div class="r" style="margin-top:8px"><button data-act="addref"><i class="ti ti-photo-plus"></i>Add image or logo</button><span class="mut" style="margin:0">or paste one into the box</span></div><div class="r" style="margin-top:8px"><button data-act="addbroll"><i class="ti ti-video-plus"></i>Add B-roll video</button><span class="mut" style="margin:0">cut in at this note\'s point or range</span></div></details><div id="refs" class="r" style="margin-top:8px"></div><div id="broll" class="r" style="margin-top:8px"></div><div id="pick" style="margin-top:8px"></div><div class="r" style="margin-top:8px"><button class="p" data-act="addnote"><i class="ti ti-plus"></i>Add note for <span id="nt">0:00</span></button></div><div id="notes" style="display:flex;flex-direction:column;gap:8px;margin-top:12px"></div><div class="r" style="margin-top:14px;justify-content:space-between"><span class="mut" style="margin:0;font-weight:700" id="nc"></span><button class="a" data-act="send">Send to BOSS for revision ↗</button></div></section>';
+  const notes = '<section class="c"><p class="h"><i class="ti ti-message"></i>Revision notes</p><div style="position:relative;margin:4px 0 10px"><textarea id="ntext" rows="6" style="margin:0;padding-bottom:46px" placeholder="Make the captions bigger and move them up"></textarea><button type="button" data-act="addfiles" title="Add photos, videos or audio" aria-label="Add photos, videos or audio" style="position:absolute;left:10px;bottom:10px;width:32px;height:32px;padding:0;border-radius:50%;display:grid;place-items:center;font-size:18px;color:var(--accent);border:2px solid var(--accent)"><i class="ti ti-plus"></i></button><div class="chips nchips">' + ['Make the captions bigger', 'Cut this part', 'Add B-roll here', 'Change the music'].map((t) => '<button class="chip" type="button" data-nchip="' + t + '">' + t + '</button>').join('') + '</div></div><div class="r" style="margin-top:10px"><button type="button" data-pick="caption"><i class="ti ti-typography"></i>Caption Style</button><button type="button" data-pick="motion"><i class="ti ti-sparkles"></i>Motion Graphics</button><button type="button" data-pick="edit"><i class="ti ti-scissors"></i>Editing Style</button></div><details class="more"><summary>More options · style</summary>' + styleRange + '</details><div id="refs" class="r" style="margin-top:8px"></div><div id="broll" class="r" style="margin-top:8px"></div><div id="pick" style="margin-top:8px"></div><div class="r" style="margin-top:8px"><button class="p" data-act="addnote"><i class="ti ti-plus"></i>Add note for <span id="nt">0:00</span></button></div><div id="notes" style="display:flex;flex-direction:column;gap:8px;margin-top:12px"></div><div class="r" style="margin-top:14px;justify-content:space-between"><span class="mut" style="margin:0;font-weight:700" id="nc"></span><button class="a" data-act="send">Send to BOSS for revision ↗</button></div></section>';
   // voiceover: for edits that need audio beyond the raw video — an existing file, or a script BOSS turns into one
   // revising an existing voiceover (there's no upload here: the video/MP3 choice at creation is final)
   const voGenCard = p.voiceoverFile ? '<section class="c"><p class="h"><i class="ti ti-wand"></i>Revise the voiceover</p><p class="mut" style="margin:0 0 10px">Current file: ' + esc(p.voiceoverFile) + '</p><label class="l" style="margin-top:0">Paste a new script and have BOSS regenerate it</label><textarea id="voscript" rows="3" placeholder="Paste the voiceover script here">' + esc(p.voScript || '') + '</textarea><div class="r" style="margin-top:8px"><button class="a" data-act="genvo"><i class="ti ti-wand"></i>Generate voiceover with ElevenLabs</button></div><p class="mut">Needs the ElevenLabs connector. If it isn\'t connected yet, BOSS will tell you to connect it first. This replaces the current file and restarts the Script step.</p></section>' : '';
@@ -628,7 +658,7 @@ function project() {
       '<div class="blk"><h3><span class="n done">✓</span>Extras</h3><p class="say">Tap to turn on or off. You can change these later.</p><div class="extras">' + EX.map(([k, ic, t, h]) => '<label class="ex"><input type="checkbox" data-opt="' + k + '"' + (optsOf(p)[k] ? ' checked' : '') + (briefLocked ? ' disabled' : '') + ' hidden><i class="ti ti-' + ic + ' ic"></i><b>' + t + '</b><small>' + h + '</small></label>').join('') + '</div></div>' +
       '<div class="blk"><h3><span class="n done">✓</span>Your look</h3><p class="say">This is the style BOSS will use.</p><div class="look">' + (sc ? '<img src="' + P + sc.cover + '" alt="">' : '<div class="nolook"><i class="ti ti-scissors"></i></div>') + '<div class="sp"><b>' + esc(styName(p.styleId)) + '</b><small>Tap Change to pick another</small></div><select id="psty" title="Change the project style"' + (briefLocked ? ' disabled' : '') + '><option value=""' + (p.styleId ? '' : ' selected') + '>Custom</option>' + STY.map((x) => '<option value="' + x.id + '"' + (x.id === p.styleId ? ' selected' : '') + '>' + esc(x.name) + '</option>').join('') + '</select></div></div>' +
       '<details class="more blk"><summary><i class="ti ti-settings"></i> More options <span class="mut" style="font-weight:500">(copy another video\'s editing. You can skip this)</span></summary>' + refHtml(p, briefLocked) + '</details>' +
-      '<div class="foot" style="justify-content:center;flex-direction:column;text-align:center">' + (API ? '<button class="next" data-act="renderdraft"><i class="ti ' + (p.reached >= 2 ? 'ti-arrow-right' : 'ti-player-play') + '"></i>' + (p.reached >= 2 ? 'Go to Editing' : 'Render Draft') + '</button>' : '<div class="r"><button class="a" data-act="sendbrief">Send first instruction ↗</button><button data-act="toframes"><i class="ti ti-layout-grid"></i>Preview frames</button><button data-act="proceed"><i class="ti ti-player-play"></i>Skip frames and render draft</button></div>') +
+      '<div class="foot" style="justify-content:center;flex-direction:column;text-align:center">' + (API ? (p.reached >= 2 ? '' : brainChip()) + '<button class="next" data-act="renderdraft"><i class="ti ' + (p.reached >= 2 ? 'ti-arrow-right' : 'ti-player-play') + '"></i>' + (p.reached >= 2 ? 'Go to Editing' : 'Render Draft') + '</button>' : '<div class="r"><button class="a" data-act="sendbrief">Send first instruction ↗</button><button data-act="toframes"><i class="ti ti-layout-grid"></i>Preview frames</button><button data-act="proceed"><i class="ti ti-player-play"></i>Skip frames and render draft</button></div>') +
       '<p class="mut" style="margin:10px 0 0">' + (API ? (briefLocked ? '' : 'BOSS makes still frames first so you can fix things before the full video is made. Nothing is final yet.') : 'The first option shows you the graphics on still frames before rendering. The second skips that and renders the full draft right away.') + '</p></div></section>';
   } else if (ph === 'script') {
     left = video + (API && !p.magic ? '<button class="sw on" id="sprev" data-act="sprev"><i class="k"></i>Skip the cut parts when I play it</button>' : '');
@@ -646,18 +676,18 @@ function project() {
       '<p class="h"><i class="ti ti-message"></i>Revision notes</p>',
       '<p class="h"><i class="ti ti-message"></i>Fix things · <span id="ct">0:00</span></p><div class="guide"><div id="eg1" class="on"><b>1</b>Find the moment</div><div id="eg2"><b>2</b>Write what to change</div><div id="eg3"><b>3</b>Add note, then render</div></div>' + toolRow.replace('Back to frames', 'Close')
     );
-    captureInNotes = captureInNotes.replace('</textarea><details class="more">', '</textarea><div class="chips">' + ['Make the captions bigger', 'Cut this part', 'Add B-roll here', 'Change the music'].map((t) => '<button class="chip" type="button" data-nchip="' + t + '">' + t + '</button>').join('') + '</div><details class="more">')
+    captureInNotes = captureInNotes
       .replace('<div class="r" style="margin-top:8px"><button class="p" data-act="addnote">', '<div class="r" style="margin-top:8px"><button class="p" data-act="snap" title="Take a picture of this moment and draw on it"><i class="ti ti-camera"></i>Snapshot</button><button class="a" data-act="addnote">');
     captureInNotes = captureInNotes.replace(
       '<button class="a" data-act="send">Send to BOSS for revision ↗</button>',
-      '<button class="next" data-act="send"' + (sendLocked ? ' disabled' : '') + '>' + (!sendLocked ? 'Render Draft' : runSt && runSt.running ? 'Rendering…' : 'Add a note to render') + '</button>'
+      brainChip() + '<button class="next" data-act="send"' + (sendLocked ? ' disabled' : '') + '>' + (!sendLocked ? 'Render Draft' : runSt && runSt.running ? 'Rendering…' : 'Add a note to render') + '</button>'
     );
     const addStyleLocked = !viewFile || !!(runSt && runSt.running);
     const styleProposalHtml = cur.styleProposalReady
       ? '<section class="c" style="border:2px solid var(--accent)">' + styleProposalBody(cur.styleProposalReady) + '<div class="r"><button class="a" data-act="approvestyle">Approve — add to style picker</button><button data-act="discardstyle">Discard</button></div></section>'
       : cur.pendingStyleSlug ? '<section class="c"><p class="h"><i class="ti ti-sparkles"></i>New style proposal</p><p class="mut" style="margin:0">BOSS is studying this edit and drafting a new style…</p></section>' : '';
     captureInNotes = captureInNotes.replace(/<\/section>$/, (API && viewV && recFor(viewV) ? '<div class="how" style="margin-top:14px"><p class="mut" style="margin:0 0 4px;font-weight:700"><i class="ti ti-history"></i> How was this version made?</p>' + versionInfo(viewV) + '</div>' : '') + '</section>');
-    right = captureInNotes + styleProposalHtml + '<section class="c" style="border:2px solid var(--green)"><p class="h"><i class="ti ti-circle-check" style="color:var(--green)"></i>All done fixing?</p><div class="r" style="justify-content:space-between"><button class="a ' + (p.notes.length ? 'g' : '') + '" data-act="final"' + (finalLocked ? ' disabled' : '') + '><i class="ti ti-movie"></i>Make the final video</button><div class="menu"><button class="i" data-menu="1" title="More"><i class="ti ti-dots"></i></button><div class="pop"><button data-act="addstyle"' + (addStyleLocked ? ' disabled' : '') + '><i class="ti ti-sparkles"></i>Save this look as a new style</button></div></div></div><p class="mut">Drafts are small so they finish fast. The final video is full quality (1080×1920) and only happens when you press this.</p></section>';
+    right = captureInNotes + styleProposalHtml + '<section class="c" style="border:2px solid var(--green)"><p class="h"><i class="ti ti-circle-check" style="color:var(--green)"></i>All done fixing?</p><div style="margin-bottom:10px">' + brainChip() + '</div><div class="r" style="justify-content:space-between"><button class="a ' + (p.notes.length ? 'g' : '') + '" data-act="final"' + (finalLocked ? ' disabled' : '') + '><i class="ti ti-movie"></i>Make the final video</button><div class="menu"><button class="i" data-menu="1" title="More"><i class="ti ti-dots"></i></button><div class="pop"><button data-act="addstyle"' + (addStyleLocked ? ' disabled' : '') + '><i class="ti ti-sparkles"></i>Save this look as a new style</button></div></div></div><p class="mut">Drafts are small so they finish fast. The final video is full quality (1080×1920) and only happens when you press this.</p></section>';
   }
   app.classList.toggle('wide3', ph === 'approved'); // the Editing page runs wider, to fit video + Script + notes
   app.classList.toggle('landwide', ph === 'approved' && showLandscape); // a landscape draft keeps all three columns full width instead of the usual 1680px cap
@@ -680,7 +710,7 @@ function project() {
 function notesLive() { const has = !!($('#ntext') && $('#ntext').value.trim()), any = !!(cur && cur.notes && cur.notes.length), g = (i, on) => { const x = $(i); if (x) x.className = on ? 'on' : ''; }; g('#eg1', !has && !any); g('#eg2', has); g('#eg3', !has && any); }
 function notesHtml() {
   const p = cur;
-  $('#notes').innerHTML = p.notes.length ? p.notes.map((n) => `<div class="n"><span class="t" data-t="${n.t}">${fmt(n.t)}</span>${n.img ? `<img src="${n.img}" alt="">` : ''}${(n.refs || []).map((r) => `<img src="${r}" alt="Reference" style="object-fit:contain;background:#fff;height:44px;width:auto;max-width:70px">`).join('')}<span>${esc(n.text || (n.img ? '(drawing only)' : n.refLink ? 'Copy the style from this link' : n.quote ? '' : ''))}${n.quote ? `<br><span class="tag"><i class="ti ti-quote"></i> "${esc(n.quote)}" · ${esc(rangeLabel(n))}</span>` : ''}${n.styleId ? `<br><span class="tag">${esc(styName(n.styleId))} · ${esc(rangeLabel(n))}</span>` : ''}${n.refLink ? `<br><span class="tag"><i class="ti ti-link"></i> ${esc(n.refLink.replace(/^https?:\/\/(www\.)?/, '').slice(0, 40))} · ${esc(n.range)}</span>` : ''}${(n.broll || []).map((f) => `<br><span class="tag"><i class="ti ti-video"></i> ${esc(f)}</span>`).join('')}</span><button class="x" data-del="${n.id}" title="Delete"><i class="ti ti-x"></i></button></div>`).join('') : '<span class="mut" style="margin:0">No notes yet. Pause on a moment and add one.</span>';
+  $('#notes').innerHTML = p.notes.length ? p.notes.map((n) => `<div class="n"><span class="t" data-t="${n.t}">${fmt(n.t)}</span>${n.img ? `<img src="${n.img}" alt="">` : ''}${(n.refs || []).map((r) => `<img src="${r}" alt="Reference" style="object-fit:contain;background:#fff;height:44px;width:auto;max-width:70px">`).join('')}<span>${esc(n.text || (n.img ? '(drawing only)' : n.refLink ? 'Copy the style from this link' : n.quote ? '' : ''))}${n.quote ? `<br><span class="tag"><i class="ti ti-quote"></i> "${esc(n.quote)}" · ${esc(rangeLabel(n))}</span>` : ''}${n.styleId ? `<br><span class="tag">${esc(styName(n.styleId))} · ${esc(rangeLabel(n))}</span>` : ''}${n.refLink ? `<br><span class="tag"><i class="ti ti-link"></i> ${esc(n.refLink.replace(/^https?:\/\/(www\.)?/, '').slice(0, 40))} · ${esc(n.range)}</span>` : ''}${(n.broll || []).map((f) => `<br><span class="tag"><i class="ti ti-video"></i> ${esc(f)}</span>`).join('')}${(n.audio || []).map((f) => `<br><span class="tag"><i class="ti ti-music"></i> ${esc(f)}</span>`).join('')}</span><button class="x" data-del="${n.id}" title="Delete"><i class="ti ti-x"></i></button></div>`).join('') : '<span class="mut" style="margin:0">No notes yet. Pause on a moment and add one.</span>';
   $('#nc').textContent = p.notes.length + ' note' + (p.notes.length === 1 ? '' : 's') + ' ready'; notesLive();
 }
 
@@ -762,8 +792,9 @@ async function addRefFile(f) {
   c.getContext('2d').drawImage(bm, 0, 0, c.width, c.height); pendingRefs.push(f.type === 'image/png' || f.type === 'image/webp' || f.type === 'image/gif' ? c.toDataURL('image/png') : c.toDataURL('image/jpeg', 0.85)); paintRefs();
 }
 document.addEventListener('paste', (e) => { const it = [...(e.clipboardData?.items || [])].find((i) => i.type.startsWith('image/')); if (it && $('#ntext')) { e.preventDefault(); addRefFile(it.getAsFile()); } });
+let pendingAudio = []; // audio files saved in audio/, waiting to attach to the note being composed
 let pendingBroll = []; // filenames already saved in broll/, waiting to attach to the note being composed
-function paintBroll() { const el = $('#broll'); if (el) el.innerHTML = pendingBroll.map((f, i) => '<span class="n" style="padding:6px 10px"><i class="ti ti-video"></i><span style="overflow-wrap:anywhere">' + esc(f) + '</span><button class="x" data-rmbroll="' + i + '" title="Remove"><i class="ti ti-x"></i></button></span>').join(''); }
+function paintBroll() { const el = $('#broll'); if (el) el.innerHTML = pendingAudio.map((f, i) => '<span class="n" style="padding:6px 10px"><i class="ti ti-music"></i><span style="overflow-wrap:anywhere">' + esc(f) + '</span><button class="x" data-rmaudio="' + i + '" title="Remove"><i class="ti ti-x"></i></button></span>').join('') + pendingBroll.map((f, i) => '<span class="n" style="padding:6px 10px"><i class="ti ti-video"></i><span style="overflow-wrap:anywhere">' + esc(f) + '</span><button class="x" data-rmbroll="' + i + '" title="Remove"><i class="ti ti-x"></i></button></span>').join(''); }
 let frames = [], frameBusy = false, runSt = null, poller = null, runLabel = '';
 async function ensureOrient(p) {
   if (p.landscape !== undefined || !vurl) return;
@@ -845,7 +876,7 @@ async function pollRun() {
   } catch {}
 }
 async function startRunApi(prompt, images, label) {
-  try { await jf('POST', '/api/projects/' + cur.id + '/run', {prompt, images: images || {}}); } catch (e) { return toast(String(e.message)); }
+  try { await jf('POST', '/api/projects/' + cur.id + '/run', {prompt, images: images || {}, model: brainOf(cur)}); } catch (e) { return toast(String(e.message)); }
   runLabel = label || 'BOSS is working'; runSt = {running: true, startedAt: Date.now()}; paintRun(); poller = poller || setInterval(pollRun, 2000); if (cur.phase === 'approved' && !snap) project();
 }
 function hiddenVideo() { return new Promise((ok, no) => { const v = document.createElement('video'); v.muted = true; v.preload = 'auto'; v.src = vurl; v.onloadedmetadata = () => ok(v); v.onerror = no; }); }
@@ -1349,7 +1380,7 @@ function magicPrompt() {
   return 'Magic Edit: do the whole edit yourself, with no review step — there is no Script-step cleanup and no frame approval for this project.\nProject: "' + p.name + '"' + (rawVideoLine(p) || '\nNo raw video: this is audio-only, build it from the voiceover.') + '\nStyle: ' + styName(p.styleId) + (p.styleId ? '' : ' (apply no style: keep the video exactly as it is)') + (guide ? ' (read its guide first: ' + guide + ')' : '') + voiceoverLine(p) + refLine(p) + (p.brief ? '\n\nMy instruction:\n' + p.brief : '') + '\n\nFirst remove dead air, filler words and stutters using your own judgement. Check every cut against the transcript\'s word timestamps so a cut never lands inside a word or clips off part of it — cut only at a word boundary. Audio, music and sound effects: do exactly what I picked below, nothing more.' + optsLine(p) + '\n\nThen apply the style end to end, using your best judgement for pacing and structure since I gave no instruction. Render the result straight to ' + (API ? 'projects/' + p.id + '/drafts/' : 'outbox/') + ' as draft-v1, then also save a handful of still frames from it into ' + (API ? 'projects/' + p.id + '/frames/' : 'the frames') + ' (same convention as the usual frame step: frame-001_t03.5.jpg), so they are ready to view immediately. Skip the frame-preview stage entirely — there is nothing to approve here.';
 }
 function buildPrompt() {
-  const p = cur, lines = p.notes.slice().sort((a, b) => a.t - b.t).map((n, i) => `${i + 1}. ${fmt(n.t)}: ${n.text || (n.img ? '(see the drawing)' : n.refLink ? 'copy the style from the link' : n.quote ? '(see the exact words below)' : (n.broll || []).length ? '(cut in the B-roll below)' : '(see the attached image)')}${n.img ? (API ? ' [annotated snapshot: {{img:note-' + (i + 1) + '}}]' : ' [snapshot attached]') : ''}${(n.refs || []).map((r, j) => API ? ' [reference image or logo to add: {{img:ref-' + (i + 1) + '-' + (j + 1) + '}}]' : ' [reference image attached]').join('')}${(n.broll || []).length ? ` [cut in this B-roll footage ${n.range === 'Custom' ? 'across ' + rangeLabel(n) : n.range.toLowerCase()}, over the original audio (keep the voice playing): ${n.broll.map((f) => (API ? 'projects/' + p.id + '/broll/' : 'broll/') + f).join(', ')}]` : ''}${n.quote ? ` [exact words: "${n.quote}", ${rangeLabel(n)}]` : ''}${n.styleId ? ` [use ${styName(n.styleId)}, ${n.range === 'Custom' ? 'from ' + fmtp(n.rangeStart) + ' to ' + fmtp(n.rangeEnd) : n.range.toLowerCase()}]` : ''}${n.refLink ? ` [copy the editing style of ${n.refLink}, ${n.range.toLowerCase()}${n.text ? ', as the note says' : ', the whole look'}: download it with yt-dlp${API ? ' into projects/' + p.id + '/reference/' : ''}, study it, and copy only its style, never its footage, music, voice or logos]` : ''}`);
+  const p = cur, lines = p.notes.slice().sort((a, b) => a.t - b.t).map((n, i) => `${i + 1}. ${fmt(n.t)}: ${n.text || (n.img ? '(see the drawing)' : n.refLink ? 'copy the style from the link' : n.quote ? '(see the exact words below)' : (n.broll || []).length ? '(cut in the B-roll below)' : (n.audio || []).length ? '(add the audio below)' : '(see the attached image)')}${n.img ? (API ? ' [annotated snapshot: {{img:note-' + (i + 1) + '}}]' : ' [snapshot attached]') : ''}${(n.refs || []).map((r, j) => API ? ' [reference image or logo to add: {{img:ref-' + (i + 1) + '-' + (j + 1) + '}}]' : ' [reference image attached]').join('')}${(n.broll || []).length ? ` [cut in this B-roll footage ${n.range === 'Custom' ? 'across ' + rangeLabel(n) : n.range.toLowerCase()}, over the original audio (keep the voice playing): ${n.broll.map((f) => (API ? 'projects/' + p.id + '/broll/' : 'broll/') + f).join(', ')}]` : ''}${(n.audio || []).length ? ` [add this audio ${n.range === 'Custom' ? 'across ' + rangeLabel(n) : n.range.toLowerCase()}, mixed under the voice so the voice stays clear: ${n.audio.map((f) => (API ? 'projects/' + p.id + '/audio/' : 'audio/') + f).join(', ')}]` : ''}${n.quote ? ` [exact words: "${n.quote}", ${rangeLabel(n)}]` : ''}${n.styleId ? ` [use ${styName(n.styleId)}, ${n.range === 'Custom' ? 'from ' + fmtp(n.rangeStart) + ' to ' + fmtp(n.rangeEnd) : n.range.toLowerCase()}]` : ''}${n.refLink ? ` [copy the editing style of ${n.refLink}, ${n.range.toLowerCase()}${n.text ? ', as the note says' : ', the whole look'}: download it with yt-dlp${API ? ' into projects/' + p.id + '/reference/' : ''}, study it, and copy only its style, never its footage, music, voice or logos]` : ''}`);
   return `${!viewLabel ? (p.rawName ? 'Edit the raw video' + rawVideoLine(p).replace(/^\nRaw video: /, ' ') : 'Build this edit from the voiceover; there is no raw video') + ' of the project "' + p.name + '"' + (p.brief ? '. Overall instruction: ' + p.brief : '') + '. Change only what the notes ask and leave the rest untouched' + voiceoverLine(p) + refLine(p) + optsLine(p) : 'Revise the draft of the project "' + p.name + '"'} (project style: ${styName(p.styleId)}).\nApply all ${p.notes.length} notes below in one pass, then ${cur.phase === 'frames' ? 'update the still frames in ' + (API ? 'projects/' + p.id + '/frames/' : 'the frames') + ' only. Do not render the full video until I approve the frames.' : 'render a new draft to ' + (API ? 'projects/' + p.id + '/drafts/' : 'outbox/') + '.'}\n\n${lines.join('\n')}`;
 }
 
@@ -1361,7 +1392,7 @@ const SCHED_PROMPT = 'Set up the Mashore Method connector for BOSS Studio so it 
 // ---- Try another style: pick a style, the studio makes a copy of the project (same footage, no notes) and renders it right away
 function pickRestyle() {
   const m = document.createElement('div'); m.className = 'modal'; m.id = 'rsmodal';
-  m.innerHTML = '<div class="c" style="max-width:900px;max-height:88vh;overflow:auto"><div class="r" style="position:sticky;top:-16px;z-index:5;background:var(--card);margin:-16px -18px 6px;padding:14px 18px 8px"><h2 style="margin:0 auto 0 0">Pick a new style</h2><button id="rsclose" class="i" title="Close" style="background:var(--accent);border-color:var(--accent);color:#fff"><i class="ti ti-x"></i></button></div><p class="mut" style="margin:0 0 12px">BOSS makes a copy of this project in the style you pick and renders it. Your original stays exactly as it is.</p><div class="styles" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))">' + STY.map((s) => { const sm = s.samples && s.samples[0]; return '<div class="sty' + (s.id === cur.styleId ? ' on' : '') + '" data-rs="' + esc(s.id) + '"><div class="th"><img src="' + P + s.cover + '" alt="">' + (sm ? '<video muted loop playsinline preload="none" data-src="' + P + sm.src + '" data-at="' + (sm.at || 0) + '"></video><button class="i" data-fsvideo="1" title="Watch the full video"><i class="ti ti-maximize"></i></button>' : '') + '<div class="use"><span>Use this style</span></div></div><b>' + esc(s.name) + (s.id === cur.styleId ? ' (current)' : '') + '</b></div>'; }).join('') + '</div></div>';
+  m.innerHTML = '<div class="c" style="max-width:900px;max-height:88vh;overflow:auto"><div class="r" style="position:sticky;top:-16px;z-index:5;background:var(--card);margin:-16px -18px 6px;padding:14px 18px 8px"><h2 style="margin:0 auto 0 0">Pick a new style</h2><button id="rsclose" class="i" title="Close" style="background:var(--accent);border-color:var(--accent);color:#fff"><i class="ti ti-x"></i></button></div><p class="mut" style="margin:0 0 12px">BOSS makes a copy of this project in the style you pick and renders it. Your original stays exactly as it is.</p><div style="margin:0 0 12px">' + brainChip() + '</div><div class="styles" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))">' + STY.map((s) => { const sm = s.samples && s.samples[0]; return '<div class="sty' + (s.id === cur.styleId ? ' on' : '') + '" data-rs="' + esc(s.id) + '"><div class="th"><img src="' + P + s.cover + '" alt="">' + (sm ? '<video muted loop playsinline preload="none" data-src="' + P + sm.src + '" data-at="' + (sm.at || 0) + '"></video><button class="i" data-fsvideo="1" title="Watch the full video"><i class="ti ti-maximize"></i></button>' : '') + '<div class="use"><span>Use this style</span></div></div><b>' + esc(s.name) + (s.id === cur.styleId ? ' (current)' : '') + '</b></div>'; }).join('') + '</div></div>';
   document.body.appendChild(m); watchStyleVideos();
 }
 async function doRestyle(id) {
@@ -1467,6 +1498,60 @@ function showTour() {
     paint();
   });
 }
+// ---- usage ring (far right, outside the pill): shows the fullest limit; hover or tap for each one
+const USE_NAMES = { five_hour: '5-hour limit', seven_day: 'Weekly · all models', seven_day_opus: 'Weekly · Opus', seven_day_sonnet: 'Weekly · Sonnet' };
+function resetText(t) { if (!t) return ''; const d = new Date(t); if (isNaN(d)) return ''; const tm = d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); return d < new Date() ? 'Reset already, waiting for a new reading' : 'Resets ' + (d.toDateString() === new Date().toDateString() ? 'at ' + tm : d.toLocaleDateString([], { weekday: 'short' }) + ' ' + tm); }
+function paintUsage(u) {
+  const ps = (u && u.plans) || {}, ks = Object.keys(ps), top = Math.max(0, ...ks.map((k) => ps[k].utilization)), C = 2 * Math.PI * 9, ring = $('#ringb');
+  ring.hidden = false; ring.className = 'uring' + (top >= 0.85 ? ' hot' : top >= 0.6 ? ' mid' : '');
+  ring.innerHTML = '<svg viewBox="0 0 24 24"><circle class="t" cx="12" cy="12" r="9"/><circle class="v" cx="12" cy="12" r="9" stroke-dasharray="' + (C * Math.min(top, 1)).toFixed(1) + ' ' + C.toFixed(1) + '"/></svg>';
+  $('#pop').innerHTML = '<h4>Your usage limits</h4>' + (ks.length ? ks.map((k) => { const x = ps[k].utilization, p = Math.round(x * 100); return '<div class="u ' + (x >= 0.85 ? 'hot' : x >= 0.6 ? 'mid' : '') + '"><div><b>' + esc(USE_NAMES[k] || k.replace(/_/g, ' ')) + '</b><span>' + p + '%</span></div><div class="ubar"><i style="width:' + Math.min(p, 100) + '%"></i></div><small>' + esc(resetText(ps[k].resetsAt)) + '</small></div>'; }).join('') : '<p>' + esc((u && u.note) || 'No reading yet.') + '</p>') + '<p>Your whole Claude plan, the same numbers the Claude app shows. Checked every minute.</p>';
+}
+function usageRing() {
+  const b = $('#ringb'), pop = $('#pop'), show = (on) => { pop.hidden = !on; b.setAttribute('aria-expanded', on ? 'true' : 'false'); };
+  b.addEventListener('click', (e) => { e.stopPropagation(); show(pop.hidden); });
+  b.addEventListener('mouseenter', () => show(true)); b.addEventListener('mouseleave', () => setTimeout(() => { if (!pop.matches(':hover')) show(false); }, 150)); pop.addEventListener('mouseleave', () => show(false));
+  document.addEventListener('click', () => show(false)); document.addEventListener('keydown', (e) => { if (e.key === 'Escape') show(false); });
+  const go = () => jf('GET', '/api/usage').then(paintUsage).catch(() => {}); go(); setInterval(go, 60000);
+}
+// ---- My projects: a "what each step does" window every time the list opens, Skip at the bottom
+const STEPS_HELP = [['ti-cut', '1 · Cutting', 'Your words appear as text. Click or drag to select what you do not want, then press Cut. Skip it if the video is already trimmed.'], ['ti-message', '2 · Instructions', 'Tell BOSS what you want: the style, B-roll, captions, music, anything. Or press Magic Edit and let BOSS decide.'], ['ti-movie', '3 · Editing & Revision', 'Watch the draft frames and video. Add notes (and drawings) on anything to change, then render once with all your notes.'], ['ti-library-photo', '4 · Gallery', 'Every rendered version is saved here. Download it, save to Drive, try another style on a copy, or keep revising.'], ['ti-calendar-time', '5 · Scheduling', 'Write the title and description, then post or schedule it to your social accounts.']];
+const START_HELP = [['ti-pencil', '1 · Name your project', 'Anything you want, so you can find it later. Adding a file fills the name for you.'], ['ti-upload', '2 · Add your video', 'Drag it in or press Browse. Video or voice-only both work.'], ['ti-brand-instagram', '3 · Where will you post it?', 'Pick the app. BOSS sets the right video size for you.'], ['ti-message', '4 · Tell BOSS what you want', 'Write it like you would tell an editor: B-roll, captions, music, anything.'], ['ti-palette', '5 · Pick a look', 'Tap the style you like, or choose Custom. Use the full-screen icon on a card to watch it.'], ['ti-cpu', '6 · Pick the AI brain', 'The model that does the editing. Not sure? Keep the one already picked.'], ['ti-wand', 'Then press Magic Edit', 'BOSS makes the first draft for you. Or choose Edit manually to steer it yourself.']];
+function showSteps(items = STEPS_HELP, title = 'How a project works', sub = 'Every project moves through these 5 steps.') {
+  const key = 'v2-steps-off-' + title; try { if (localStorage.getItem(key) === '1') return; } catch {}
+  if (document.querySelector('#stepshelp')) return;
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'stepshelp'; document.body.appendChild(m);
+  m.innerHTML = '<div class="c" style="max-width:560px"><h2 style="margin:0 0 4px;text-align:center">' + title + '</h2><p class="mut" style="margin:0 0 12px;text-align:center">' + sub + '</p>' + items.map(([ic, h, t]) => '<div style="display:flex;gap:12px;align-items:flex-start;margin:10px 0"><i class="ti ' + ic + '" style="font-size:26px;color:var(--accent);flex:none"></i><div><b>' + h + '</b><p style="margin:2px 0 0">' + t + '</p></div></div>').join('') + '<div class="r" style="justify-content:center;margin-top:14px"><button class="a" id="stepsskip">Skip</button></div><label class="mut" style="display:block;text-align:center;margin-top:10px;font-size:.72rem;opacity:.7;cursor:pointer"><input type="checkbox" id="stepsno"> Do not show again</label></div>';
+  const close = () => { if (m.querySelector('#stepsno').checked) { try { localStorage.setItem(key, '1'); } catch {} } m.remove(); document.removeEventListener('keydown', esc2); }, esc2 = (e) => { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', esc2); m.querySelector('#stepsskip').onclick = close; m.addEventListener('click', (e) => { if (e.target === m) close(); });
+}
+// ---- note pickers: Caption Style, Motion Graphics, Editing Style. Choosing an option adds its note to the text box.
+const PICKS = {
+  caption: ['Caption Style', [['Bold pop-in words', 'Use bold pop-in captions, one to three words at a time', 'Big, punchy words that pop in as they are spoken.'], ['Karaoke highlight', 'Use karaoke captions that highlight the word being spoken', 'A full line, the spoken word lights up in the accent color.'], ['Clean subtitles', 'Use clean, small subtitles', 'Quiet two-line subtitles that stay out of the way.'], ['Big centered words', 'Use big centered caption words in the middle of the frame', 'One huge word or phrase at a time, center screen.'], ['Emoji accents', 'Add an emoji next to key caption words', 'A small emoji lands beside the important words.'], ['Hide the captions', 'Remove the captions here', 'No captions in this part.']]],
+  motion: ['Motion Graphics', [['Kinetic text', 'Animate the key phrases as kinetic text', 'Key phrases fly, scale and wipe in on screen.'], ['Lower third', 'Add a lower-third with the name and title', 'Name and role bar that slides in and out.'], ['Icons and stickers', 'Add small animated icons on the key words', 'A matching icon pops up as the word is said.'], ['Number counter', 'Animate the numbers with a counting effect', 'Stats count up so they land harder.'], ['Arrows and underlines', 'Add hand-drawn arrows and underlines on key points', 'Marker-style callouts that point at what matters.'], ['Whoosh transitions', 'Add whoosh transitions between sections', 'Quick slide or zoom between ideas, with a sound.']]],
+  edit: ['Editing Style', [['Faster pace', 'Make this part faster, cut the pauses', 'Tighter cuts, no dead air.'], ['Punch-in zooms', 'Add punch-in zooms on the key lines', 'A quick zoom on the strongest moments.'], ['Slow and calm', 'Slow this down and let it breathe', 'Longer shots, fewer cuts.'], ['B-roll over cuts', 'Cover the cuts with B-roll', 'Footage over the jump cuts so it feels smooth.'], ['Sound effects', 'Add subtle sound effects on the cuts and graphics', 'Clicks, hits and whooshes under the edit.'], ['Strong opening', 'Open with the strongest line first', 'Start on the hook, then the intro.']]]
+};
+function showPick(kind) {
+  const [title, opts] = PICKS[kind]; if (document.querySelector('#pickwin')) return;
+  const has = (note) => (($('#ntext') || {}).value || '').split('. ').some((x) => x.trim().replace(/\.$/, '') === note);
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'pickwin'; document.body.appendChild(m);
+  m.innerHTML = '<div class="c" style="max-width:560px"><h2 style="margin:0 0 4px;text-align:center">' + title + '</h2><p class="mut" style="margin:0 0 12px;text-align:center">Tap one to add it to your note.</p><div style="display:grid;gap:8px">' + opts.map(([h, note, d], i) => '<button type="button" data-popt="' + i + '" style="text-align:left;display:block;padding:10px 14px' + (has(note) ? ';border:2px solid var(--accent);background:var(--tint)' : '') + '"><b>' + (has(note) ? '<i class="ti ti-check" style="color:var(--accent);margin-right:6px"></i>' : '') + esc(h) + '</b><span class="mut" style="display:block;margin:2px 0 0;font-weight:500">' + esc(d) + '</span></button>').join('') + '</div><div class="r" style="justify-content:center;margin-top:14px"><button class="a" id="pickclose">Close</button></div></div>';
+  const close = () => { m.remove(); document.removeEventListener('keydown', esc3); }, esc3 = (e) => { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', esc3); m.querySelector('#pickclose').onclick = close; m.addEventListener('click', (e) => {
+    if (e.target === m) return close(); const b = e.target.closest('[data-popt]'); if (!b) return;
+    const t = $('#ntext'), note = opts[+b.dataset.popt][1]; if (t) { t.value = has(note) ? t.value.split('. ').filter((x) => x.trim().replace(/\.$/, '') !== note).join('. ') : (t.value.trim() ? t.value.trim() + '. ' : '') + note; t.dispatchEvent(new Event('input', {bubbles: true})); notesLive(); } close();
+  });
+}
+// ---- first launch: a 3-slide welcome, shown once per browser
+const WELCOME = [['ti-upload', '1 · Add your video', 'Press New project, drop your video (or MP3), name it and pick a look. That is all BOSS needs to start.'], ['ti-wand', '2 · Let BOSS edit it', 'Press Magic Edit and BOSS makes the first draft. Prefer to steer it yourself? Choose Edit manually.'], ['ti-send', '3 · Review, then post', 'Watch the draft, leave notes (and drawings) on anything to change, render again, then download, save to Drive or schedule it.']];
+function showWelcome() {
+  try { if (localStorage.getItem('v2-welcome-seen') === '1') return; } catch {}
+  let i = 0; const m = document.createElement('div'); m.className = 'modal'; document.body.appendChild(m);
+  const done = () => { try { localStorage.setItem('v2-welcome-seen', '1'); } catch {} m.remove(); };
+  const paint = () => { const [ic, h, t] = WELCOME[i]; m.innerHTML = '<div class="c" style="max-width:460px;text-align:center"><i class="ti ' + ic + '" style="font-size:42px;color:var(--accent)"></i><h2 style="margin:8px 0">' + h + '</h2><p style="margin:0 0 14px">' + t + '</p><p class="mut">' + (i + 1) + ' / ' + WELCOME.length + '</p><div class="r" style="justify-content:center"><button id="wels">Skip</button>' + (i ? '<button id="welb">Back</button>' : '') + '<button class="a" id="weln">' + (i < WELCOME.length - 1 ? 'Next' : 'Get started') + '</button></div></div>';
+    m.querySelector('#wels').onclick = done; m.querySelector('#weln').onclick = () => (i < WELCOME.length - 1 ? (i++, paint()) : done()); const b = m.querySelector('#welb'); if (b) b.onclick = () => (i--, paint()); };
+  paint();
+}
 function showFinish() {
   const f = viewFile, u = vurl, m = document.createElement('div'); m.className = 'modal'; document.body.appendChild(m);
   m.innerHTML = '<div class="c" style="max-width:640px;text-align:center"><h2 style="margin:0 0 4px">🎉 Your video is ready</h2><p class="mut" style="margin:0 0 10px">What do you want to do with it?</p><video src="' + u + '" controls playsinline style="width:100%;max-height:50vh;border-radius:10px;background:#000"></video><div class="r" style="justify-content:center;margin-top:12px"><a href="' + u + '" download="' + esc(f) + '"><button class="a" type="button"><i class="ti ti-download"></i>Download</button></a><button data-drivedraft="' + esc(f) + '"><i class="ti ti-cloud-upload"></i>Save to Drive</button><button id="fsched"><i class="ti ti-calendar-time"></i>Schedule post</button><button id="fedit">Edit again</button><button id="fskip">Skip for now</button></div></div>';
@@ -1519,6 +1604,7 @@ document.addEventListener('click', async (e) => {
   }
   if ((x = q('[data-step]'))) { if (x.dataset.step === (cur.phase || 'brief')) return; if ($('#brief')) cur.brief = $('#brief').value; snap = null; cur.phase = x.dataset.step; save(); project(); return pushStep(); }
   if (q('[data-menu]')) return;
+  if ((x = q('[data-brain]'))) { cur.model = x.dataset.brain; save(); document.querySelectorAll('.brainchip').forEach((m) => { const t = document.createElement('div'); t.innerHTML = brainChip(); m.replaceWith(t.firstChild); }); toast('Brain: ' + brainRow(cur.model)[2] + (cur.model === 'fable' ? '. This one uses the most credits.' : '')); return; }
   if (q('[data-restyle]')) return pickRestyle();
   if ((x = q('[data-gstyle]'))) { // Gallery: turn this version's look into a new style in the picker
     if (!(await askConfirm('BOSS will study this video and write a new style from its fonts, colours, captions and pacing. You get to review it before it is added to the style picker. Go ahead?', 'Yes, save the look', 'Cancel'))) return;
@@ -1576,6 +1662,7 @@ document.addEventListener('click', async (e) => {
     return snapAt(t, +x.dataset.fr); // no draft yet: nothing to scrub, so preview the still instead
   }
   if ((x = q('[data-rmref]'))) { pendingRefs.splice(+x.dataset.rmref, 1); return paintRefs(); }
+  if ((x = q('[data-rmaudio]'))) { pendingAudio.splice(+x.dataset.rmaudio, 1); return paintBroll(); }
   if ((x = q('[data-rmbroll]'))) { pendingBroll.splice(+x.dataset.rmbroll, 1); return paintBroll(); }
   if ((x = q('[data-del]'))) { cur.notes = cur.notes.filter((n) => n.id !== x.dataset.del); save(); return project(); }
   if ((x = q('[data-editmode]'))) {
@@ -1683,6 +1770,21 @@ document.addEventListener('click', async (e) => {
   }
   if (a === 'final') { const pr = 'This draft is approved. Render the FINAL video at full resolution (' + finalSizeText(cur) + ', 30 fps) into ' + (API ? 'projects/' + cur.id + '/drafts/' : 'outbox/') + ', named final-<project>.mp4, ' + (cur.styleId ? 'with the project style' : 'with no style applied') + ' and all my notes applied.'; if (API) { archive('final', pickDraft); save(); return startRunApi(pr, null, 'Rendering Final Version'); } $('#mtitle').textContent = 'Final render'; $('#prompt').textContent = pr; $('#modal').hidden = false; return; }
   if (a === 'addref') { const i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*'; i.multiple = true; i.onchange = () => [...i.files].forEach(addRefFile); return i.click(); }
+  if (a === 'addfiles') {
+    const i = document.createElement('input'); i.type = 'file'; i.accept = 'image/*,video/*,audio/*'; i.multiple = true;
+    i.onchange = async () => {
+      for (const f of i.files) {
+        if (f.type.startsWith('image/')) { await addRefFile(f); continue; }
+        const audio = f.type.startsWith('audio/'); if (!audio && !f.type.startsWith('video/')) { toast('Skipped ' + f.name + ': not a photo, video or audio file'); continue; }
+        if (!API) { toast('Adding videos and audio needs the studio server running'); continue; }
+        toast('Saving ' + f.name + '…');
+        try { const r = await fetch('/api/projects/' + cur.id + '/broll?name=' + encodeURIComponent(f.name) + (audio ? '&kind=audio' : ''), {method: 'PUT', headers: H, body: f}); if (!r.ok) throw 0; (audio ? pendingAudio : pendingBroll).push((await r.json()).name); }
+        catch { toast('Upload failed: ' + f.name); }
+      }
+      paintBroll();
+    };
+    return i.click();
+  }
   if (a === 'addbroll') {
     const i = document.createElement('input'); i.type = 'file'; i.accept = 'video/*'; i.multiple = true;
     i.onchange = async () => {
@@ -1735,14 +1837,14 @@ document.addEventListener('click', async (e) => {
     const text = $('#ntext').value.trim(), byLink = $('#nsty').value === '__link', refLink = byLink ? $('#nlink').value.trim() : '';
     if (byLink && !/^https?:\/\/\S+$/i.test(refLink)) return toast('Paste a full link that starts with https://');
     if (snap && shapes.length && !text) { const t = $('#ntext'); t.focus(); t.classList.remove('shk'); void t.offsetWidth; t.classList.add('shk'); return toast('Add a note describing your drawing first, so BOSS knows what to change'); }
-    if (!text && !snap && !pendingRefs.length && !pendingBroll.length && !refLink && !scriptPick) return toast('Type a note, annotate a frame, add an image or B-roll, or select a phrase in Script first');
+    if (!text && !snap && !pendingRefs.length && !pendingBroll.length && !pendingAudio.length && !refLink && !scriptPick) return toast('Type a note, annotate a frame, add an image or B-roll, or select a phrase in Script first');
     let range = $('#nrange').value;
     if (range === 'Custom' && !scriptPick) return toast('Select a phrase in Script to use Custom');
     const t = scriptPick ? scriptPick.start : snap ? snap.t : v ? v.currentTime : 0, styleId = byLink ? '' : $('#nsty').value;
-    const note = {id: 'n' + Date.now(), t, text, styleId, refLink, range, img: snap ? merged() : '', full: snap && API ? mergedFull() : '', refs: pendingRefs.slice(), broll: pendingBroll.slice()};
+    const note = {id: 'n' + Date.now(), t, text, styleId, refLink, range, img: snap ? merged() : '', full: snap && API ? mergedFull() : '', refs: pendingRefs.slice(), broll: pendingBroll.slice(), audio: pendingAudio.slice()};
     if (scriptPick) { note.range = 'Custom'; note.rangeStart = scriptPick.start; note.rangeEnd = scriptPick.end; note.quote = scriptPick.text; }
     const keep = !!(snap && annotating); // in the floating canvas: stay open so more notes can go on the same frame
-    cur._t = t; cur.notes.push(note); pendingRefs = []; pendingBroll = []; paintBroll(); scriptPick = null; paintPick(); save();
+    cur._t = t; cur.notes.push(note); pendingRefs = []; pendingBroll = []; pendingAudio = []; paintBroll(); scriptPick = null; paintPick(); save();
     if (keep) { notesDirty = true; shapes = []; $('#ntext').value = ''; paintRefs(); draw(); notesHtml(); return toast('Note added (' + cur.notes.length + ' total). Add another, or press Close.'); }
     if (history.state && history.state.annot) { snap = null; history.back(); } snap = null; return project();
   }
@@ -1752,6 +1854,7 @@ document.addEventListener('click', async (e) => {
   if (a === 'copyprompt') { try { await navigator.clipboard.writeText($('#prompt').textContent); toast('Prompt copied. Paste it into your BOSS chat'); } catch { toast('Select the text and copy it'); } }
 });
 document.addEventListener('change', (e) => {
+  if (e.target.dataset.newbrain) { draftNew.model = e.target.dataset.newbrain; return; }
   if (e.target.dataset.newopt) { draftNew.opts = {...(draftNew.opts || {audio: true}), [e.target.dataset.newopt]: e.target.checked}; return; }
   if (e.target.id === 'reflink' && cur) {
     const u = e.target.value.trim();
@@ -1791,7 +1894,7 @@ function newStatus() { // keeps the numbered badges, the helper line and the two
 }
 function briefLive() { const has = !!($('#brief') && $('#brief').value.trim()), n = $('#bn1'); if (n) { n.className = 'n' + (has ? ' done' : ''); n.textContent = has ? '✓' : '1'; } const g = (i, on) => { const x = $(i); if (x) x.className = on ? 'on' : ''; }; g('#bg1', !has); g('#bg2', has); }
 document.addEventListener('input', (e) => { if (e.target.id === 'ntext') notesLive(); if (e.target.id === 'brief' && cur && cur.phase === 'brief') briefLive(); if ((e.target.id === 'pname' || e.target.id === 'pinstr') && view === 'new') newStatus(); });
-document.addEventListener('click', (e) => { const nc = e.target.closest('[data-nchip]'); if (nc && cur) { const t = $('#ntext'); t.value = (t.value.trim() ? t.value.trim() + '. ' : '') + nc.dataset.nchip; t.dispatchEvent(new Event('input', {bubbles: true})); notesLive(); return; } const bc = e.target.closest('[data-bchip]'); if (bc && cur && cur.phase === 'brief') { const t = $('#brief'); t.value = (t.value.trim() ? t.value.trim() + '. ' : '') + bc.dataset.bchip; cur.brief = t.value; save(); briefLive(); return; } const x = e.target.closest('[data-chip]'); if (!x || view !== 'new') return; const t = $('#pinstr'); t.value = (t.value.trim() ? t.value.trim() + ', ' : '') + x.dataset.chip; draftNew.instructions = t.value; newStatus(); });
+document.addEventListener('click', (e) => { const pk = e.target.closest('[data-pick]'); if (pk) return showPick(pk.dataset.pick); const nc = e.target.closest('[data-nchip]'); if (nc && cur) { const t = $('#ntext'); t.value = (t.value.trim() ? t.value.trim() + '. ' : '') + nc.dataset.nchip; t.dispatchEvent(new Event('input', {bubbles: true})); notesLive(); return; } const bc = e.target.closest('[data-bchip]'); if (bc && cur && cur.phase === 'brief') { const t = $('#brief'); t.value = (t.value.trim() ? t.value.trim() + '. ' : '') + bc.dataset.bchip; cur.brief = t.value; save(); briefLive(); return; } const x = e.target.closest('[data-chip]'); if (!x || view !== 'new') return; const t = $('#pinstr'); t.value = (t.value.trim() ? t.value.trim() + ', ' : '') + x.dataset.chip; draftNew.instructions = t.value; newStatus(); });
 window.addEventListener('unhandledrejection', () => toast('Saving projects is blocked in this view. Open the local copy to save.'));
 if (FR) { // inside the hub: use its header, size to the content, send style clicks up
   $('.top').style.display = 'none';
@@ -1804,7 +1907,14 @@ if (FR) { // inside the hub: use its header, size to the content, send style cli
   if (API) { try { projects = await jf('GET', '/api/projects'); } catch { projects = []; } }
   $('#savedbadge').innerHTML = API ? '<i class="ti ti-circle-check"></i> Saved automatically' : 'Draft · saves in this browser only';
   document.addEventListener('fullscreenchange', () => { const v = $('#v'); if (v) v.controls = !!document.fullscreenElement; });
-history.replaceState({view: 'home'}, ''); render();
+// a refresh keeps the page you were on: the browser keeps history.state across reloads, so reopen that view (and project)
+  const st = history.state || {};
+  if (st.view === 'project' && API) {
+    const pr = projects.find((y) => y.id === st.pid);
+    if (pr) { vurl = await openUrl(pr); await ensureOrient(pr); frames = []; go('project', pr, true); } else { history.replaceState({view: 'list'}, ''); go('list', null, true); }
+  } else if (st.view === 'list' || st.view === 'new') go(st.view, null, true);
+  else { history.replaceState({view: 'home'}, ''); render(); }
+  showWelcome(); if (API) usageRing();
 })();
 </script>
 </body>

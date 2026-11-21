@@ -3,6 +3,7 @@
 // Only answers to localhost, and its API only to requests that carry the x-studio header
 // (a page on another website can't add it), so other sites can't drive it.
 import http from 'node:http';
+import https from 'node:https';
 import { spawn } from 'node:child_process';
 import { cpSync, createReadStream, createWriteStream, existsSync, linkSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
@@ -51,6 +52,7 @@ Project folder: projects/${id}/
 - voiceover/: an existing voiceover audio file, or where you save one you generate with the ElevenLabs MCP from a script I paste. If I ask you to generate one and the ElevenLabs connector is not connected, stop and tell me to connect it first, with no other changes.
 - reference/ holds a video whose editing style I want copied (uploaded, or downloaded from my link with yt-dlp).
 - broll/ holds extra footage clips my notes ask you to cut in at a specific point or over a specific range.
+- audio/ holds music or sound files my notes ask you to add at a specific point or over a specific range, mixed under the voice.
 - revisions/ holds my annotated snapshots. Look at each image file named in my notes.
 Never overwrite or delete anything in drafts/. Save every new render as draft-v<N>.mp4, where N is one more than the highest number already there, so older versions stay in the gallery. Final renders are named final-<project>.mp4.
 ${formatLine}
@@ -72,13 +74,14 @@ Rendering rules (important, they stop duplicate renders and slow renders):
 - Speed: iPhone or other HDR clips (ffprobe shows color_transfer arib-std-b67 or smpte2084) push the renderer onto its slow 16-bit HDR path. Before you build the composition, convert such a clip, and every B-roll clip, to SDR bt709 with ffmpeg (zscale tonemap) and use that copy. Keep B-roll clips short and small.
 Reply briefly when done.\n\n`;
 };
-function startRun(id, prompt) {
+const MODELS = { opus: 'claude-opus-5-5', sonnet: 'claude-sonnet-5-5', fable: 'claude-fable-5-2', haiku: 'claude-haiku-5-5' }; // the brains the studio offers; anything else falls back to opus
+function startRun(id, prompt, brain) {
   const exe = findClaude();
   const st = { running: true, text: '', tool: '', error: '', code: null, startedAt: Date.now() };
   runs.set(id, st);
   if (!exe) { st.running = false; st.error = "Can't find Claude Code. Install it and sign in first."; return st; }
   const p = readProject(id) || {};
-  const args = ['-p', '--output-format', 'stream-json', '--verbose', '--model', 'claude-opus-5-5', '--effort', 'medium', '--permission-mode', 'acceptEdits', '--allowedTools', 'Bash,PowerShell,Read,Write,Edit,Glob,Grep,Skill,mcp__ElevenLabs__text_to_speech,mcp__ElevenLabs__search_voices,mcp__ElevenLabs__text_to_voice,mcp__ElevenLabs__compose_music,mcp__ElevenLabs__create_composition_plan,mcp__ElevenLabs__text_to_sound_effects'];
+  const args = ['-p', '--output-format', 'stream-json', '--verbose', '--model', MODELS[brain] || MODELS[p.model] || MODELS.opus, '--effort', 'medium', '--permission-mode', 'acceptEdits', '--allowedTools', 'Bash,PowerShell,Read,Write,Edit,Glob,Grep,Skill,mcp__ElevenLabs__text_to_speech,mcp__ElevenLabs__search_voices,mcp__ElevenLabs__text_to_voice,mcp__ElevenLabs__compose_music,mcp__ElevenLabs__create_composition_plan,mcp__ElevenLabs__text_to_sound_effects'];
   if (p.session) args.push('--resume', p.session);
   const child = spawn(exe, args, { cwd: ROOT, windowsHide: true });
   st.child = child;
@@ -215,6 +218,30 @@ async function ghl(path, init = {}) {
   return { status: r.status, body: await r.json().catch(() => ({})) };
 }
 const readBody = (req) => new Promise((ok) => { let b = ''; req.on('data', (d) => (b += d)); req.on('end', () => { try { ok(JSON.parse(b || '{}')); } catch { ok({}); } }); });
+// ---- Claude usage (same numbers as the Claude app): read-only call with the local Claude sign-in; the token is never logged or stored
+let usageCache = { at: 0, v: null };
+async function getUsage() {
+  if (usageCache.v && Date.now() - usageCache.at < 60000) return usageCache.v;
+  let v;
+  try {
+    const oa = JSON.parse(readFileSync(join(homedir(), '.claude', '.credentials.json'), 'utf8')).claudeAiOauth || {};
+    if (!oa.accessToken) v = { plans: {}, note: 'Not signed in to Claude on this computer.' };
+    else if (oa.expiresAt && oa.expiresAt < Date.now()) v = { plans: {}, note: 'Open the Claude app once so it refreshes your sign-in, then check again.' };
+    else {
+      const body = await new Promise((resolve, reject) => {
+        const rq = https.request('https://api.anthropic.com/api/oauth/usage', { method: 'GET', timeout: 8000, headers: { Authorization: 'Bearer ' + oa.accessToken, 'anthropic-beta': 'oauth-2025-04-20', 'User-Agent': 'boss-studio', Accept: 'application/json' } }, (r) => {
+          let t = ''; r.on('data', (d) => { if (t.length < 100000) t += d; }); r.on('end', () => (r.statusCode === 200 ? resolve(t) : reject(new Error('status ' + r.statusCode))));
+        });
+        rq.on('timeout', () => rq.destroy(new Error('timeout'))); rq.on('error', reject); rq.end();
+      });
+      const plans = {};
+      for (const [k, x] of Object.entries(JSON.parse(body) || {})) if (x && typeof x === 'object' && typeof x.utilization === 'number') plans[k.slice(0, 40)] = { utilization: x.utilization / 100, resetsAt: Date.parse(x.resets_at) || 0 };
+      v = Object.keys(plans).length ? { plans, note: '' } : { plans: {}, note: 'Claude did not send usage numbers this time.' };
+    }
+  } catch { v = { plans: {}, note: 'I could not read your Claude usage right now.' }; }
+  usageCache = { at: Date.now(), v };
+  return v;
+}
 async function mashoreApi(req, res, id) {
   if (id === 'accounts') { // which apps are linked in Mashore Method
     const r = await ghl('/social-media-posting/{loc}/accounts');
@@ -276,6 +303,7 @@ async function api(req, res, url) {
     const r = await exec(bin, ['config', 'create', DRIVE_REMOTE, 'drive', 'scope', 'drive'], 300000);
     return r.code === 0 ? send(res, 200, { ok: true }) : send(res, 500, { error: 'Google sign-in did not finish: ' + r.err.trim().split(/\r?\n/).pop() });
   }
+  if (a === 'usage') return send(res, 200, await getUsage());
   if (a === 'mashore') return mashoreApi(req, res, id);
   if (a === 'ping') return send(res, 200, { ok: true, maintainer: existsSync(join(ROOT, '.maintainer')) });
   if (a === 'style-proposals') {
@@ -365,8 +393,8 @@ async function api(req, res, url) {
     Object.assign(p, { rawName: out, struck: [], cuts: [], cutFile: '' }); writeProject(p); return send(res, 200, p);
   }
   if (b === 'broll' && req.method === 'PUT') { // extra footage a revision note asks BOSS to cut in
-    const name = safeName(url.searchParams.get('name')); mkdirSync(join(pdir(id), 'broll'), { recursive: true });
-    const out = createWriteStream(join(pdir(id), 'broll', name));
+    const name = safeName(url.searchParams.get('name')), dir = url.searchParams.get('kind') === 'audio' ? 'audio' : 'broll'; mkdirSync(join(pdir(id), dir), { recursive: true });
+    const out = createWriteStream(join(pdir(id), dir, name));
     req.pipe(out); out.on('finish', () => send(res, 200, { name })); out.on('error', () => send(res, 500, { error: 'could not save' })); return;
   }
   if (b === 'reference' && req.method === 'PUT') { // a video whose editing style BOSS should copy
@@ -438,7 +466,7 @@ async function api(req, res, url) {
       prompt = prompt.split('{{img:' + key + '}}').join('projects/' + id + '/revisions/' + batch + '/' + key + '.' + img.ext);
     }
     prompt = prompt.replace(/\{\{img:[a-z0-9-]+\}\}/gi, '(no image)');
-    startRun(id, prompt); return send(res, 200, { ok: true, batch: any ? batch : '' });
+    startRun(id, prompt, j.model); return send(res, 200, { ok: true, batch: any ? batch : '' });
   }
   return send(res, 404, { error: 'not found' });
 }

@@ -3,7 +3,8 @@
 // renders a test video into outbox/, and reports what is ready. Safe to re-run.
 //
 //   node setup.mjs
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
+import { connect } from 'node:net';
 import { copyFileSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -85,3 +86,21 @@ console.log(`Local faster-whisper: ${localWhisper ? 'yes' : 'no'}`);
 
 console.log(`\nSETUP COMPLETE${groq || localWhisper ? '' : ' (transcription not configured yet)'}`);
 console.log(`Drop raw videos in ${resolve(root, 'inbox')} or drag one into your agent's chat and say "edit this".`);
+
+// Start the studios in the background and open the hub, so install ends with the app on screen.
+// Skip with: node setup.mjs --no-open
+if (!process.argv.includes('--no-open')) {
+  step('Opening BOSS Studio in your browser');
+  const up = (port) => new Promise((ok) => {
+    const s = connect(port, '127.0.0.1').once('connect', () => { s.destroy(); ok(true); }).once('error', () => ok(false));
+  });
+  for (const [port, file] of [[1988, 'studio'], [1986, 'studio-v2']]) {
+    if (await up(port)) continue;
+    spawn(process.execPath, [join(root, 'hub', file, 'server.mjs')], { cwd: root, detached: true, stdio: 'ignore', windowsHide: true }).unref();
+  }
+  for (let i = 0; i < 20 && !(await up(1988)); i++) await new Promise((r) => setTimeout(r, 500));
+  const url = 'http://localhost:1988/hub/';
+  const [cmd, args] = win ? ['cmd', ['/c', 'start', '', url]] : process.platform === 'darwin' ? ['open', [url]] : ['xdg-open', [url]];
+  spawn(cmd, args, { detached: true, stdio: 'ignore' }).on('error', () => console.log(`Open ${url} in your browser.`)).unref();
+  console.log(`BOSS Studio is running at ${url}`);
+}

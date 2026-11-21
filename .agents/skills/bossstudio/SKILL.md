@@ -31,7 +31,8 @@ network access (Codex does by default), ask the user to approve network access f
 
 ## When the user says "start" (or kit/ or my-style.md is missing)
 
-1. Say in one line that you will set things up, then run `node setup.mjs`.
+1. Say in one line that you will set things up, then run `node setup.mjs`. When it finishes it
+     starts the studio in the background and opens the hub in the browser by itself (`--no-open` skips that).
    - If it stops on missing tools, show the install command it printed, ask once, then run it.
      On macOS without Homebrew, ask the user to paste Homebrew's installer into Terminal
      themselves, since it asks for their Mac password:
